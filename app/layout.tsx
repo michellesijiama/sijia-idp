@@ -1,9 +1,9 @@
 import type { Metadata } from 'next'
-import { Josefin_Sans } from 'next/font/google'
+import { Manrope } from 'next/font/google'
 import './globals.css'
 import { IDPProvider } from './providers'
 
-const josefin = Josefin_Sans({ subsets: ['latin'], variable: '--font-josefin' })
+const manrope = Manrope({ subsets: ['latin'], variable: '--font-manrope' })
 
 export const metadata: Metadata = {
   title: 'My IDP \u2014 Individual Development Plan',
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={josefin.variable}>
+    <html lang="en" className={manrope.variable}>
       <body className="min-h-screen bg-mesh bg-noise">
         <IDPProvider>{children}</IDPProvider>
       </body>
