@@ -164,12 +164,14 @@ export function ObjectiveModal({
             <div className="border-t border-black/[0.04] pt-5">
               <EvidenceSection
                 evidence={currentObj.evidence}
-                onAdd={(type, url, title) =>
+                onAdd={(type, url, title) => {
                   addEvidence(categoryId, subCategoryId, liveObjective.id, type, url, title)
-                }
-                onDelete={(evidenceId) =>
+                  setIsDirty(true)
+                }}
+                onDelete={(evidenceId) => {
                   deleteEvidence(categoryId, subCategoryId, liveObjective.id, evidenceId)
-                }
+                  setIsDirty(true)
+                }}
               />
             </div>
           </div>
