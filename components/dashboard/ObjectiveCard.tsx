@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Objective } from '@/lib/types'
-import { formatDate, getDueDateStatus } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
 import { Button } from '@/components/ui/Button'
 import { Calendar, Edit3, Trash2 } from 'lucide-react'
 
@@ -13,7 +13,6 @@ interface ObjectiveCardProps {
 }
 
 export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProps) {
-  const dueDateStatus = getDueDateStatus(objective.deadline)
   const totalEvidence = objective.evidence.length
 
   return (
@@ -43,16 +42,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
       {/* Due date */}
       <div className="flex items-center gap-1.5 mb-3">
         <Calendar size={14} className="text-neutral-400 flex-shrink-0" />
-        <span
-          className={`text-base ${
-            dueDateStatus === 'overdue'
-              ? 'text-black font-semibold'
-              : dueDateStatus === 'soon'
-              ? 'text-neutral-600 font-medium'
-              : 'text-neutral-400'
-          }`}
-        >
-          {dueDateStatus === 'overdue' ? 'Overdue \u00b7 ' : ''}
+        <span className="text-base text-neutral-400">
           Due {formatDate(objective.deadline)}
         </span>
       </div>

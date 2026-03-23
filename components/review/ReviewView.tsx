@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { IDPState } from '@/lib/types'
-import { formatDate, getDueDateStatus } from '@/lib/utils'
+import { formatDate } from '@/lib/utils'
 import { Avatar } from '@/components/ui/Avatar'
 import { Calendar, ExternalLink, Link2 } from 'lucide-react'
 
@@ -82,7 +82,6 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                 {/* Objectives */}
                 <div className="space-y-4">
                   {sub.objectives.map((obj) => {
-                    const dueDateStatus = getDueDateStatus(obj.deadline)
                     const imageEvidence = obj.evidence.filter((e) => e.type === 'image')
                     const linkEvidence = obj.evidence.filter((e) => e.type === 'link')
 
@@ -109,14 +108,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                         {/* Deadline */}
                         <div className="flex items-center gap-2 mb-4">
                           <Calendar size={14} className="text-neutral-400" />
-                          <span className={`text-base ${
-                            dueDateStatus === 'overdue'
-                              ? 'text-black font-semibold'
-                              : dueDateStatus === 'soon'
-                              ? 'text-neutral-600 font-medium'
-                              : 'text-neutral-500'
-                          }`}>
-                            {dueDateStatus === 'overdue' ? 'Overdue \u00b7 ' : ''}
+                          <span className="text-base text-neutral-500">
                             Due {formatDate(obj.deadline)}
                           </span>
                         </div>
