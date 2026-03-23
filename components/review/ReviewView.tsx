@@ -43,7 +43,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
 
       {/* Overview Stats */}
       <section className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-8 shadow-sm">
-        <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-widest mb-6">Overview</h2>
+        <h2 className="text-base font-semibold text-neutral-400 uppercase tracking-widest mb-6">Overview</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { label: 'Total Objectives', value: stats.total },
@@ -53,7 +53,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
           ].map((s) => (
             <div key={s.label} className="text-center">
               <p className="text-3xl font-bold text-black">{s.value}</p>
-              <p className="text-sm text-neutral-400 mt-1">{s.label}</p>
+              <p className="text-base text-neutral-400 mt-1">{s.label}</p>
             </div>
           ))}
         </div>
@@ -78,7 +78,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
             <div className="border-b-2 border-black pb-3">
               <div className="flex items-baseline justify-between gap-4">
                 <div>
-                  <p className="text-sm font-semibold text-neutral-400 uppercase tracking-widest mb-1">
+                  <p className="text-base font-semibold text-neutral-400 uppercase tracking-widest mb-1">
                     Category {catIndex + 1}
                   </p>
                   <h2 className="text-2xl font-bold text-black">{cat.name}</h2>
@@ -98,7 +98,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                 <div className="flex items-baseline gap-3">
                   <h3 className="text-lg font-semibold text-black">{sub.name}</h3>
                   {sub.description && (
-                    <span className="text-sm text-neutral-400">{sub.description}</span>
+                    <span className="text-base text-neutral-400">{sub.description}</span>
                   )}
                 </div>
 
@@ -168,7 +168,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                         {/* Link evidence */}
                         {linkEvidence.length > 0 && (
                           <div className={imageEvidence.length === 0 ? 'border-t border-black/[0.04] pt-4' : ''}>
-                            <p className="text-sm font-semibold text-neutral-400 uppercase tracking-widest mb-3">
+                            <p className="text-base font-semibold text-neutral-400 uppercase tracking-widest mb-3">
                               Links ({linkEvidence.length})
                             </p>
                             <div className="space-y-2">
@@ -185,7 +185,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                                   </div>
                                   <div className="min-w-0 flex-1">
                                     <p className="text-base font-medium text-black truncate">{ev.title}</p>
-                                    <p className="text-sm text-neutral-400 truncate">{ev.url}</p>
+                                    <p className="text-base text-neutral-400 truncate">{ev.url}</p>
                                   </div>
                                   <ExternalLink size={14} className="text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                                 </a>
@@ -205,7 +205,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
 
       {/* Footer */}
       <section className="text-center py-12 border-t border-black/[0.06]">
-        <p className="text-sm text-neutral-400">
+        <p className="text-base text-neutral-400">
           {state.settings.name} &middot; {state.activeYear} Individual Development Plan
         </p>
       </section>
@@ -221,7 +221,7 @@ function StatusPill({ status, progress }: { status: string; progress: number }) 
   }[status] || 'bg-white/40 border border-black/[0.08] text-neutral-500'
 
   return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold flex-shrink-0 ${styles}`}>
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-base font-semibold flex-shrink-0 ${styles}`}>
       {status} · {progress}%
     </span>
   )

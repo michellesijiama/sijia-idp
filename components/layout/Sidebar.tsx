@@ -26,7 +26,7 @@ export function Sidebar({ activeSection, onNavigate }: SidebarProps) {
       {/* Logo area */}
       <div className="flex items-center gap-2.5 px-4 h-12 border-b border-black/5">
         <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
-        <span className="font-semibold text-black text-sm tracking-tight">My IDP</span>
+        <span className="font-semibold text-black text-base tracking-tight">My IDP</span>
       </div>
 
       {/* Navigation */}
@@ -39,7 +39,7 @@ export function Sidebar({ activeSection, onNavigate }: SidebarProps) {
               key={item.id}
               onClick={() => onNavigate(item.id)}
               className={cn(
-                'w-full flex items-center gap-2.5 px-3 py-2 text-sm relative rounded-none transition-all duration-150',
+                'w-full flex items-center gap-2.5 px-3 py-2 text-base relative rounded-none transition-all duration-150',
                 isActive
                   ? 'bg-black/[0.06] text-black font-semibold backdrop-blur-sm shadow-sm'
                   : 'text-neutral-500 hover:bg-black/[0.03] hover:text-black'
@@ -60,7 +60,7 @@ export function Sidebar({ activeSection, onNavigate }: SidebarProps) {
 
       {/* Footer */}
       <div className="px-4 py-3 border-t border-black/5">
-        <p className="text-sm text-neutral-400">Individual Development Plan</p>
+        <p className="text-base text-neutral-400">Individual Development Plan</p>
       </div>
     </aside>
   )

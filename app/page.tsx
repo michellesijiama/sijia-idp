@@ -82,12 +82,12 @@ function SettingsView() {
             )}
           </button>
           <div>
-            <p className="text-sm font-semibold text-black">Profile Photo</p>
-            <p className="text-sm text-neutral-400">Click to upload</p>
+            <p className="text-base font-semibold text-black">Profile Photo</p>
+            <p className="text-base text-neutral-400">Click to upload</p>
             {form.avatar && (
               <button
                 onClick={() => setForm((f) => ({ ...f, avatar: '' }))}
-                className="text-sm text-neutral-500 hover:text-black mt-0.5"
+                className="text-base text-neutral-500 hover:text-black mt-0.5"
               >
                 Remove
               </button>
@@ -102,7 +102,7 @@ function SettingsView() {
           { key: 'manager', label: "Manager's Name", placeholder: 'Your manager' },
         ].map(({ key, label, placeholder }) => (
           <div key={key}>
-            <label className="block text-sm font-semibold mb-1 text-black">{label}</label>
+            <label className="block text-base font-semibold mb-1 text-black">{label}</label>
             <input
               type="text"
               value={form[key as keyof typeof form] as string}
@@ -114,7 +114,7 @@ function SettingsView() {
         ))}
 
         <div>
-          <label className="block text-sm font-semibold mb-1 text-black">IDP Year</label>
+          <label className="block text-base font-semibold mb-1 text-black">IDP Year</label>
           <select
             value={form.year}
             onChange={(e) => setForm((f) => ({ ...f, year: Number(e.target.value) }))}
@@ -136,7 +136,7 @@ function SettingsView() {
       {/* Danger zone */}
       <div className="bg-white/60 backdrop-blur-xl p-5 space-y-3 rounded-none border border-black/[0.08] shadow-sm">
         <h3 className="text-base font-semibold text-black">Danger Zone</h3>
-        <p className="text-sm text-neutral-500">
+        <p className="text-base text-neutral-500">
           Reset all data and start fresh. This cannot be undone.
         </p>
         <Button
@@ -208,7 +208,7 @@ function CategoriesView({
                 <div>
                   <h3 className="text-base font-bold text-black">{cat.name}</h3>
                   {cat.description && (
-                    <p className="text-sm text-neutral-500 mt-0.5">{cat.description}</p>
+                    <p className="text-base text-neutral-500 mt-0.5">{cat.description}</p>
                   )}
                 </div>
                 <div className="flex items-center gap-1">
@@ -240,9 +240,9 @@ function CategoriesView({
                     <div>
                       <p className="text-base font-medium text-black">{sub.name}</p>
                       {sub.description && (
-                        <p className="text-sm text-neutral-400 mt-0.5">{sub.description}</p>
+                        <p className="text-base text-neutral-400 mt-0.5">{sub.description}</p>
                       )}
-                      <p className="text-sm text-neutral-400 mt-1">
+                      <p className="text-base text-neutral-400 mt-1">
                         {sub.objectives.length} objective{sub.objectives.length !== 1 ? 's' : ''}
                       </p>
                     </div>
@@ -269,7 +269,7 @@ function CategoriesView({
 
                 <button
                   onClick={() => onAddSubCategory(cat.id)}
-                  className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-none border border-dashed border-black/[0.08] text-neutral-400 text-sm font-medium hover:border-black/[0.15] hover:text-neutral-600 hover:bg-white/40 transition-all duration-200"
+                  className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-none border border-dashed border-black/[0.08] text-neutral-400 text-base font-medium hover:border-black/[0.15] hover:text-neutral-600 hover:bg-white/40 transition-all duration-200"
                 >
                   <Plus size={14} />
                   Add Sub-Category

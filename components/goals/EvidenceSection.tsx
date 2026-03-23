@@ -47,8 +47,8 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-neutral-700">Evidence</label>
-        <span className="text-xs text-neutral-400">{evidence.length} item{evidence.length !== 1 ? 's' : ''}</span>
+        <label className="text-base font-medium text-neutral-700">Evidence</label>
+        <span className="text-base text-neutral-400">{evidence.length} item{evidence.length !== 1 ? 's' : ''}</span>
       </div>
 
       {/* Always-visible add buttons */}
@@ -151,7 +151,7 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
                       if (parent) {
                         parent.classList.add('flex', 'items-center', 'justify-center')
                         const span = document.createElement('span')
-                        span.className = 'text-xs text-neutral-400'
+                        span.className = 'text-base text-neutral-400'
                         span.textContent = 'Image unavailable'
                         parent.appendChild(span)
                       }
@@ -170,8 +170,8 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
               )}
               <div className="p-2.5 flex items-start justify-between gap-2">
                 <div className="min-w-0">
-                  <p className="text-xs font-medium text-black truncate">{ev.title}</p>
-                  <p className="text-[10px] text-neutral-400 mt-0.5">
+                  <p className="text-base font-medium text-black truncate">{ev.title}</p>
+                  <p className="text-base text-neutral-400 mt-0.5">
                     {ev.type === 'image' ? <Image size={9} className="inline mr-0.5 -mt-px" /> : <Link2 size={9} className="inline mr-0.5 -mt-px" />}
                     {ev.type} &middot; {formatDate(ev.addedAt)}
                   </p>
@@ -192,8 +192,8 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
       ) : (
         <div className="py-8 text-center border border-dashed border-black/[0.08] rounded-none">
           <Image size={24} className="mx-auto mb-2 text-neutral-300" />
-          <p className="text-xs text-neutral-400">No evidence yet.</p>
-          <p className="text-xs text-neutral-400">Attach images or add links above.</p>
+          <p className="text-base text-neutral-400">No evidence yet.</p>
+          <p className="text-base text-neutral-400">Attach images or add links above.</p>
         </div>
       )}
     </div>

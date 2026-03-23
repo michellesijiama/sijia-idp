@@ -39,7 +39,7 @@ export function CategoryFormModal({
     <Modal open={open} onClose={onClose} title={title} size="sm">
       <div className="p-5 space-y-4">
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">
+          <label className="block text-base font-medium text-neutral-700 mb-1.5">
             Name <span className="text-neutral-400">*</span>
           </label>
           <input
@@ -58,8 +58,8 @@ export function CategoryFormModal({
           />
         </div>
         <div>
-          <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-            Description <span className="text-xs text-neutral-400">(optional)</span>
+          <label className="block text-base font-medium text-neutral-700 mb-1.5">
+            Description <span className="text-base text-neutral-400">(optional)</span>
           </label>
           <textarea
             value={description}

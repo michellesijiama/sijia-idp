@@ -57,7 +57,7 @@ export function MobileNav({ open, onClose, activeSection, onNavigate }: MobileNa
         <div className="flex items-center justify-between px-4 h-12 border-b border-black/5">
           <div className="flex items-center gap-2">
             <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
-            <span className="font-semibold text-sm text-black">My IDP</span>
+            <span className="font-semibold text-base text-black">My IDP</span>
           </div>
           <button
             onClick={onClose}
@@ -80,7 +80,7 @@ export function MobileNav({ open, onClose, activeSection, onNavigate }: MobileNa
                   onClose()
                 }}
                 className={cn(
-                  'w-full flex items-center gap-2.5 px-3 py-2 text-sm relative rounded-none transition-all duration-150',
+                  'w-full flex items-center gap-2.5 px-3 py-2 text-base relative rounded-none transition-all duration-150',
                   isActive
                     ? 'bg-black/[0.06] text-black font-semibold'
                     : 'text-neutral-500 hover:bg-black/[0.03]'
@@ -110,7 +110,7 @@ export function MobileNav({ open, onClose, activeSection, onNavigate }: MobileNa
               key={item.id}
               onClick={() => onNavigate(item.id)}
               className={cn(
-                'flex-1 flex flex-col items-center gap-0.5 py-2.5 text-xs font-semibold transition-colors duration-100',
+                'flex-1 flex flex-col items-center gap-0.5 py-2.5 text-base font-semibold transition-colors duration-100',
                 isActive ? 'text-black' : 'text-neutral-400'
               )}
             >

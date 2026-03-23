@@ -20,7 +20,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
     <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-4 animate-slide-up transition-all duration-200 hover:bg-white/80 hover:shadow-lg hover:border-white/60 group">
       {/* Status + Progress */}
       <div className="flex items-center justify-between gap-2 mb-3">
-        <span className="inline-flex items-center gap-1.5 text-sm font-semibold bg-white/40 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-black/[0.04] text-black">
+        <span className="inline-flex items-center gap-1.5 text-base font-semibold bg-white/40 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-black/[0.04] text-black">
           {objective.status} · {objective.progress}%
         </span>
       </div>
@@ -35,7 +35,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
 
       {/* Description preview */}
       {objective.description && (
-        <p className="text-sm text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
+        <p className="text-base text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
           {objective.description}
         </p>
       )}
@@ -44,7 +44,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
       <div className="flex items-center gap-1.5 mb-3">
         <Calendar size={14} className="text-neutral-400 flex-shrink-0" />
         <span
-          className={`text-sm ${
+          className={`text-base ${
             dueDateStatus === 'overdue'
               ? 'text-black font-semibold'
               : dueDateStatus === 'soon'
@@ -59,7 +59,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
 
       {/* Info line */}
       {totalEvidence > 0 && (
-        <p className="text-sm text-neutral-400 mb-3">
+        <p className="text-base text-neutral-400 mb-3">
           {totalEvidence} evidence
         </p>
       )}

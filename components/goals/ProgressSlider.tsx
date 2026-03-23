@@ -15,7 +15,7 @@ export function ProgressSlider({ value, onChange, disabled }: ProgressSliderProp
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
-        <label className="text-sm font-medium text-neutral-700">Progress</label>
+        <label className="text-base font-medium text-neutral-700">Progress</label>
         <span className="text-lg font-bold tabular-nums text-black">
           {value}%
         </span>
@@ -56,7 +56,7 @@ export function ProgressSlider({ value, onChange, disabled }: ProgressSliderProp
             onClick={() => !disabled && onChange(preset)}
             disabled={disabled}
             className={cn(
-              'text-sm font-medium px-2.5 py-1 rounded-full transition-all duration-150',
+              'text-base font-medium px-2.5 py-1 rounded-full transition-all duration-150',
               value === preset
                 ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
                 : 'text-neutral-500 bg-white/50 backdrop-blur-sm border border-black/[0.04] hover:bg-white/80',

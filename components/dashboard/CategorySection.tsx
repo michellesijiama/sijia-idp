@@ -57,7 +57,7 @@ export function CategorySection({
           <h2 className="font-bold text-base text-black truncate">
             {category.name}
           </h2>
-          <span className="text-sm text-neutral-400 font-normal flex-shrink-0">
+          <span className="text-base text-neutral-400 font-normal flex-shrink-0">
             {totalObjectives} objective{totalObjectives !== 1 ? 's' : ''} &middot; {avgProgress}% complete
           </span>
         </button>

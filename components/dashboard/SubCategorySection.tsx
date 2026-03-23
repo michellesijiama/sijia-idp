@@ -29,7 +29,7 @@ export function SubCategorySection({
       <div className="flex items-center gap-2 mb-3">
         <h3 className="text-base font-semibold text-black">{subCategory.name}</h3>
         {subCategory.description && (
-          <span className="text-sm text-neutral-400 hidden sm:inline">{subCategory.description}</span>
+          <span className="text-base text-neutral-400 hidden sm:inline">{subCategory.description}</span>
         )}
         <div className="flex items-center gap-0.5 ml-auto flex-shrink-0">
           <button
@@ -73,7 +73,7 @@ export function SubCategorySection({
           className="flex flex-col items-center justify-center gap-2 min-h-[120px] rounded-none border-2 border-dashed border-black/[0.08] text-neutral-400 hover:border-black/[0.15] hover:text-neutral-600 hover:bg-white/40 hover:backdrop-blur-sm transition-all duration-200"
         >
           <Plus size={20} />
-          <span className="text-sm font-medium">Add objective</span>
+          <span className="text-base font-medium">Add objective</span>
         </button>
       </div>
     </div>

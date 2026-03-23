@@ -24,14 +24,14 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       {mode === 'edit' && (
         <button className="lg:hidden flex items-center gap-2 mr-1" onClick={onMenuOpen} aria-label="Open menu">
           <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
-          <span className="font-semibold text-sm text-black">My IDP</span>
+          <span className="font-semibold text-base text-black">My IDP</span>
         </button>
       )}
 
       {mode === 'review' && (
         <div className="flex items-center gap-2">
           <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
-          <span className="font-semibold text-sm text-black">My IDP</span>
+          <span className="font-semibold text-base text-black">My IDP</span>
         </div>
       )}
 
@@ -41,7 +41,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       {isSaving && (
         <div className="hidden sm:flex items-center gap-1.5">
           <Cloud size={13} className="animate-pulse text-neutral-400" />
-          <span className="text-xs text-neutral-400">Saving...</span>
+          <span className="text-base text-neutral-400">Saving...</span>
         </div>
       )}
 
@@ -50,7 +50,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
         <button
           onClick={() => onModeChange('review')}
           className={cn(
-            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-all duration-150',
+            'flex items-center gap-1.5 px-3 py-1 text-base font-medium rounded-full transition-all duration-150',
             mode === 'review'
               ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
               : 'text-neutral-500 hover:bg-white/60'
@@ -62,7 +62,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
         <button
           onClick={() => onModeChange('edit')}
           className={cn(
-            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-all duration-150',
+            'flex items-center gap-1.5 px-3 py-1 text-base font-medium rounded-full transition-all duration-150',
             mode === 'edit'
               ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
               : 'text-neutral-500 hover:bg-white/60'
@@ -77,7 +77,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       <div className="relative">
         <button
           onClick={() => setYearOpen((o) => !o)}
-          className="flex items-center gap-1.5 h-7 px-3 text-xs font-medium bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-full text-black hover:bg-white/80 transition-all duration-150 shadow-sm"
+          className="flex items-center gap-1.5 h-7 px-3 text-base font-medium bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-full text-black hover:bg-white/80 transition-all duration-150 shadow-sm"
         >
           {activeYear}
           <ChevronDown size={12} className="text-neutral-400" />
@@ -92,7 +92,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
                   setYearOpen(false)
                 }}
                 className={cn(
-                  'w-full text-left px-3 py-1.5 text-xs transition-all duration-150',
+                  'w-full text-left px-3 py-1.5 text-base transition-all duration-150',
                   y === activeYear
                     ? 'text-black font-semibold bg-black/[0.06]'
                     : 'text-neutral-600 hover:bg-black/[0.03]'
@@ -111,8 +111,8 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
         <div className="hidden md:flex items-center gap-2">
           <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
           <div>
-            <p className="text-xs font-semibold leading-tight text-black">{settings.name}</p>
-            <p className="text-xs leading-tight text-neutral-400">{settings.title}</p>
+            <p className="text-base font-semibold leading-tight text-black">{settings.name}</p>
+            <p className="text-base leading-tight text-neutral-400">{settings.title}</p>
           </div>
         </div>
       )}

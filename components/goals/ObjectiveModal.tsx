@@ -103,7 +103,7 @@ export function ObjectiveModal({
                 <button
                   key={s}
                   onClick={() => set('status', s)}
-                  className={`px-2.5 py-1 text-sm font-medium rounded-full transition-all duration-150 ${
+                  className={`px-2.5 py-1 text-base font-medium rounded-full transition-all duration-150 ${
                     currentObj.status === s
                       ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
                       : 'text-neutral-500 hover:bg-white/60'
@@ -115,7 +115,7 @@ export function ObjectiveModal({
             </div>
 
             {/* Last updated */}
-            <div className="flex items-center gap-1 text-sm text-neutral-400 ml-auto">
+            <div className="flex items-center gap-1 text-base text-neutral-400 ml-auto">
               <Clock size={12} />
               Updated {formatDateTime(liveObjective.updatedAt)}
             </div>
@@ -127,7 +127,7 @@ export function ObjectiveModal({
           <div className="p-5 space-y-6">
             {/* Description */}
             <div>
-              <label className="block text-sm font-medium text-neutral-700 mb-1.5">
+              <label className="block text-base font-medium text-neutral-700 mb-1.5">
                 Description
               </label>
               <textarea
@@ -142,7 +142,7 @@ export function ObjectiveModal({
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
               {/* Deadline */}
               <div>
-                <label className="block text-sm font-medium text-neutral-700 mb-1.5">
+                <label className="block text-base font-medium text-neutral-700 mb-1.5">
                   Deadline
                 </label>
                 <input
