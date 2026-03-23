@@ -233,6 +233,15 @@ export function useIDP(
     [state, persist]
   )
 
+  // ── Reorder ────────────────────────────────────────────────────────────
+
+  const reorderCategories = useCallback(
+    (newCategories: Category[]) => {
+      persist({ ...state, categories: newCategories })
+    },
+    [state, persist]
+  )
+
   // ── Settings ────────────────────────────────────────────────────────────
 
   const updateSettings = useCallback(
@@ -282,6 +291,7 @@ export function useIDP(
     addCategory,
     updateCategory,
     deleteCategory,
+    reorderCategories,
     addSubCategory,
     updateSubCategory,
     deleteSubCategory,

@@ -3,6 +3,10 @@
 import React, { useState, useRef } from 'react'
 import { Category, SubCategory, Objective } from '@/lib/types'
 import { resizeImage, getInitials } from '@/lib/utils'
+import { DndContext, closestCenter, PointerSensor, useSensor, useSensors, DragEndEvent } from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy, useSortable } from '@dnd-kit/sortable'
+import { CSS } from '@dnd-kit/utilities'
+import { arrayMove } from '@dnd-kit/sortable'
 import { useIDPContext } from './providers'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { TopNav } from '@/components/layout/TopNav'
@@ -13,7 +17,7 @@ import { ObjectiveModal } from '@/components/goals/ObjectiveModal'
 import { CategoryFormModal } from '@/components/categories/CategoryFormModal'
 import { ReviewView } from '@/components/review/ReviewView'
 import { Button } from '@/components/ui/Button'
-import { Plus, TrendingUp, FolderOpen, Edit3, Trash2 } from 'lucide-react'
+import { Plus, TrendingUp, FolderOpen, Edit3, Trash2, GripVertical } from 'lucide-react'
 
 // ========================
 // Settings View
@@ -284,6 +288,72 @@ function CategoriesView({
 }
 
 // ========================
+// Sortable Category Wrapper
+// ========================
+function SortableCategoryItem({
+  category,
+  index,
+  onAddSubCategory,
+  onEditCategory,
+  onDeleteCategory,
+  onEditSubCategory,
+  onDeleteSubCategory,
+  onEditObjective,
+  onDeleteObjective,
+  onAddObjective,
+}: {
+  category: Category
+  index: number
+  onAddSubCategory: (catId: string) => void
+  onEditCategory: (cat: Category) => void
+  onDeleteCategory: (catId: string) => void
+  onEditSubCategory: (catId: string, subCatId: string) => void
+  onDeleteSubCategory: (catId: string, subCatId: string) => void
+  onEditObjective: (catId: string, subCatId: string, objId: string) => void
+  onDeleteObjective: (catId: string, subCatId: string, objId: string) => void
+  onAddObjective: (catId: string, subCatId: string) => void
+}) {
+  const { attributes, listeners, setNodeRef, transform, transition, isDragging } = useSortable({
+    id: category.id,
+  })
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  }
+
+  return (
+    <div ref={setNodeRef} style={style}>
+      <div className="flex items-start gap-1">
+        <button
+          {...attributes}
+          {...listeners}
+          className="mt-3 p-1 cursor-grab active:cursor-grabbing text-neutral-300 hover:text-neutral-500 transition-colors touch-none"
+          aria-label="Drag to reorder"
+        >
+          <GripVertical size={16} />
+        </button>
+        <div className="flex-1 min-w-0">
+          <CategorySection
+            category={category}
+            onAddSubCategory={onAddSubCategory}
+            onEditCategory={onEditCategory}
+            onDeleteCategory={onDeleteCategory}
+            onEditSubCategory={onEditSubCategory}
+            onDeleteSubCategory={onDeleteSubCategory}
+            onEditObjective={onEditObjective}
+            onDeleteObjective={onDeleteObjective}
+            onAddObjective={onAddObjective}
+            defaultExpanded={index < 3}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// ========================
 // Main Page
 // ========================
 export default function Page() {
@@ -293,6 +363,7 @@ export default function Page() {
     addCategory,
     updateCategory,
     deleteCategory,
+    reorderCategories,
     addSubCategory,
     updateSubCategory,
     deleteSubCategory,
@@ -396,6 +467,21 @@ export default function Page() {
     }
   }
 
+  // ── Drag and drop ───────────────────────────────────────────────────
+  const sensors = useSensors(
+    useSensor(PointerSensor, { activationConstraint: { distance: 8 } })
+  )
+
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event
+    if (!over || active.id === over.id) return
+    const oldIndex = state.categories.findIndex((c) => c.id === active.id)
+    const newIndex = state.categories.findIndex((c) => c.id === over.id)
+    if (oldIndex !== -1 && newIndex !== -1) {
+      reorderCategories(arrayMove(state.categories, oldIndex, newIndex))
+    }
+  }
+
   // ── Review Mode ──────────────────────────────────────────────────────
   if (mode === 'review') {
     return (
@@ -453,29 +539,27 @@ export default function Page() {
               <StatsBar stats={stats} />
 
               {/* Category sections */}
-              <div className="space-y-2">
-                {state.categories.map((category, i) => (
-                  <CategorySection
-                    key={category.id}
-                    category={category}
-                    onAddSubCategory={handleAddSubCategory}
-                    onEditCategory={handleEditCategory}
-                    onDeleteCategory={(catId) => {
-                      deleteCategory(catId)
-                    }}
-                    onEditSubCategory={handleEditSubCategoryDashboard}
-                    onDeleteSubCategory={(catId, subCatId) => {
-                      deleteSubCategory(catId, subCatId)
-                    }}
-                    onEditObjective={handleEditObjective}
-                    onDeleteObjective={(catId, subCatId, objId) => {
-                      deleteObjective(catId, subCatId, objId)
-                    }}
-                    onAddObjective={handleAddObjective}
-                    defaultExpanded={i < 3}
-                  />
-                ))}
-              </div>
+              <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+                <SortableContext items={state.categories.map((c) => c.id)} strategy={verticalListSortingStrategy}>
+                  <div className="space-y-2">
+                    {state.categories.map((category, i) => (
+                      <SortableCategoryItem
+                        key={category.id}
+                        category={category}
+                        index={i}
+                        onAddSubCategory={handleAddSubCategory}
+                        onEditCategory={handleEditCategory}
+                        onDeleteCategory={deleteCategory}
+                        onEditSubCategory={handleEditSubCategoryDashboard}
+                        onDeleteSubCategory={deleteSubCategory}
+                        onEditObjective={handleEditObjective}
+                        onDeleteObjective={deleteObjective}
+                        onAddObjective={handleAddObjective}
+                      />
+                    ))}
+                  </div>
+                </SortableContext>
+              </DndContext>
 
               {state.categories.length === 0 && (
                 <div className="text-center py-16 bg-white/50 backdrop-blur-xl rounded-none border border-dashed border-black/[0.08]">
