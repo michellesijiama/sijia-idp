@@ -1,12 +1,6 @@
 export type Status = 'Not Started' | 'In Progress' | 'Completed'
 export const STATUSES: Status[] = ['Not Started', 'In Progress', 'Completed']
 
-export interface Step {
-  id: string
-  text: string
-  completed: boolean
-}
-
 export interface Evidence {
   id: string
   type: 'image' | 'link'
@@ -22,7 +16,6 @@ export interface Objective {
   deadline: string
   status: Status
   progress: number
-  steps: Step[]
   evidence: Evidence[]
   createdAt: string
   updatedAt: string

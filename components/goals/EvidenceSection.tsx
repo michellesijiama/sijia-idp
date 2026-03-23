@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Evidence } from '@/lib/types'
 import { formatDate } from '@/lib/utils'
-import { Plus, Trash2, ExternalLink, Image, Link2 } from 'lucide-react'
+import { Trash2, ExternalLink, Image, Link2, Upload, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
 interface EvidenceSectionProps {
@@ -12,97 +12,151 @@ interface EvidenceSectionProps {
   onDelete: (id: string) => void
 }
 
-export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionProps) {
-  const [adding, setAdding] = useState<'image' | 'link' | null>(null)
-  const [newUrl, setNewUrl] = useState('')
-  const [newTitle, setNewTitle] = useState('')
+function resizeImage(file: File, maxWidth: number): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      const img = document.createElement('img')
+      img.onload = () => {
+        const canvas = document.createElement('canvas')
+        let { width, height } = img
+        if (width > maxWidth) {
+          height = Math.round((height * maxWidth) / width)
+          width = maxWidth
+        }
+        canvas.width = width
+        canvas.height = height
+        const ctx = canvas.getContext('2d')
+        if (!ctx) { reject(new Error('No canvas context')); return }
+        ctx.drawImage(img, 0, 0, width, height)
+        resolve(canvas.toDataURL('image/jpeg', 0.8))
+      }
+      img.onerror = reject
+      img.src = reader.result as string
+    }
+    reader.onerror = reject
+    reader.readAsDataURL(file)
+  })
+}
 
-  const handleAdd = () => {
-    if (!adding || !newUrl.trim() || !newTitle.trim()) return
-    onAdd(adding, newUrl.trim(), newTitle.trim())
-    setNewUrl('')
-    setNewTitle('')
-    setAdding(null)
+export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionProps) {
+  const [linkUrl, setLinkUrl] = useState('')
+  const [linkTitle, setLinkTitle] = useState('')
+  const [showLinkForm, setShowLinkForm] = useState(false)
+  const [uploading, setUploading] = useState(false)
+  const fileInputRef = useRef<HTMLInputElement>(null)
+
+  const handleImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploading(true)
+    try {
+      const dataUrl = await resizeImage(file, 1200)
+      const title = file.name.replace(/\.[^/.]+$/, '')
+      onAdd('image', dataUrl, title)
+    } catch (err) {
+      console.error('Failed to process image:', err)
+      alert('Failed to process image. Please try again.')
+    }
+    setUploading(false)
+    // Reset input so same file can be selected again
+    if (fileInputRef.current) fileInputRef.current.value = ''
   }
 
-  const handleCancel = () => {
-    setAdding(null)
-    setNewUrl('')
-    setNewTitle('')
+  const handleAddLink = () => {
+    if (!linkUrl.trim() || !linkTitle.trim()) return
+    onAdd('link', linkUrl.trim(), linkTitle.trim())
+    setLinkUrl('')
+    setLinkTitle('')
+    setShowLinkForm(false)
   }
 
   return (
     <div className="space-y-3">
       <div className="flex items-center justify-between">
         <label className="text-sm font-medium text-neutral-700">Evidence</label>
-        {!adding && (
-          <div className="flex items-center gap-1">
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setAdding('image')}
-              className="text-neutral-500"
-            >
-              <Image size={13} />
-              Image
-            </Button>
-            <Button
-              variant="ghost"
-              size="sm"
-              onClick={() => setAdding('link')}
-              className="text-neutral-500"
-            >
-              <Link2 size={13} />
-              Link
-            </Button>
-          </div>
-        )}
+        <span className="text-xs text-neutral-400">{evidence.length} item{evidence.length !== 1 ? 's' : ''}</span>
       </div>
 
-      {/* Add form */}
-      {adding && (
+      {/* Always-visible add buttons */}
+      <div className="flex items-center gap-2">
+        <input
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="hidden"
+        />
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => fileInputRef.current?.click()}
+          disabled={uploading}
+          className="flex-1"
+        >
+          {uploading ? (
+            <svg className="animate-spin h-3.5 w-3.5" viewBox="0 0 24 24" fill="none">
+              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+            </svg>
+          ) : (
+            <Upload size={13} />
+          )}
+          {uploading ? 'Uploading...' : 'Attach Image'}
+        </Button>
+        <Button
+          variant="secondary"
+          size="sm"
+          onClick={() => setShowLinkForm(!showLinkForm)}
+          className="flex-1"
+        >
+          <Link2 size={13} />
+          Add Link
+        </Button>
+      </div>
+
+      {/* Link form */}
+      {showLinkForm && (
         <div className="border border-black/10 rounded-xl p-3 space-y-2 animate-slide-up bg-white/50 backdrop-blur-sm">
-          <p className="text-xs font-medium text-neutral-500 uppercase tracking-wide">
-            Add {adding}
-          </p>
           <input
             autoFocus
             type="url"
-            value={newUrl}
-            onChange={(e) => setNewUrl(e.target.value)}
-            placeholder={adding === 'image' ? 'Image URL...' : 'Link URL...'}
+            value={linkUrl}
+            onChange={(e) => setLinkUrl(e.target.value)}
+            placeholder="Paste URL..."
             className="w-full h-8 px-3 text-sm border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
           />
           <input
             type="text"
-            value={newTitle}
-            onChange={(e) => setNewTitle(e.target.value)}
-            placeholder="Title..."
+            value={linkTitle}
+            onChange={(e) => setLinkTitle(e.target.value)}
+            placeholder="Title for this link..."
             className="w-full h-8 px-3 text-sm border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault()
-                handleAdd()
+                handleAddLink()
               }
             }}
           />
           <div className="flex items-center justify-end gap-2">
-            <Button variant="ghost" size="sm" onClick={handleCancel}>
+            <Button variant="ghost" size="sm" onClick={() => { setShowLinkForm(false); setLinkUrl(''); setLinkTitle('') }}>
               Cancel
             </Button>
             <Button
               variant="primary"
               size="sm"
-              onClick={handleAdd}
-              disabled={!newUrl.trim() || !newTitle.trim()}
+              onClick={handleAddLink}
+              disabled={!linkUrl.trim() || !linkTitle.trim()}
             >
+              <Plus size={13} />
               Add
             </Button>
           </div>
         </div>
       )}
 
-      {/* Evidence cards */}
+      {/* Evidence grid */}
       {evidence.length > 0 ? (
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
           {evidence.map((ev) => (
@@ -111,7 +165,7 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
               className="border border-white/40 rounded-xl overflow-hidden bg-white/50 backdrop-blur-sm group hover:bg-white/70 hover:shadow-md transition-all duration-200"
             >
               {ev.type === 'image' ? (
-                <div className="h-24 bg-black/[0.03] relative">
+                <a href={ev.url} target="_blank" rel="noopener noreferrer" className="block h-32 bg-black/[0.03] relative cursor-pointer">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={ev.url}
@@ -130,24 +184,30 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
                       }
                     }}
                   />
-                </div>
+                </a>
               ) : (
-                <div className="h-24 bg-black/[0.02] flex items-center justify-center">
+                <a
+                  href={ev.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="h-20 bg-black/[0.02] flex items-center justify-center hover:bg-black/[0.04] transition-colors"
+                >
                   <ExternalLink size={24} className="text-neutral-300" />
-                </div>
+                </a>
               )}
               <div className="p-2.5 flex items-start justify-between gap-2">
                 <div className="min-w-0">
                   <p className="text-xs font-medium text-black truncate">{ev.title}</p>
                   <p className="text-[10px] text-neutral-400 mt-0.5">
-                    {formatDate(ev.addedAt)}
+                    {ev.type === 'image' ? <Image size={9} className="inline mr-0.5 -mt-px" /> : <Link2 size={9} className="inline mr-0.5 -mt-px" />}
+                    {ev.type} &middot; {formatDate(ev.addedAt)}
                   </p>
                 </div>
                 <button
                   onClick={() => {
                     if (confirm('Delete this evidence?')) onDelete(ev.id)
                   }}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity p-0.5 rounded text-neutral-400 hover:text-black flex-shrink-0"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] flex-shrink-0"
                   aria-label="Delete evidence"
                 >
                   <Trash2 size={12} />
@@ -156,12 +216,13 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
             </div>
           ))}
         </div>
-      ) : !adding ? (
-        <div className="py-6 text-center border border-dashed border-black/[0.08] rounded-xl">
-          <Link2 size={20} className="mx-auto mb-1.5 text-neutral-300" />
-          <p className="text-xs text-neutral-400">No evidence yet. Add images or links.</p>
+      ) : (
+        <div className="py-8 text-center border border-dashed border-black/[0.08] rounded-xl">
+          <Image size={24} className="mx-auto mb-2 text-neutral-300" />
+          <p className="text-xs text-neutral-400">No evidence yet.</p>
+          <p className="text-xs text-neutral-400">Attach images or add links above.</p>
         </div>
-      ) : null}
+      )}
     </div>
   )
 }

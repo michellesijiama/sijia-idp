@@ -16,8 +16,6 @@ interface ObjectiveCardProps {
 
 export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProps) {
   const dueDateStatus = getDueDateStatus(objective.deadline)
-  const completedSteps = objective.steps.filter((s) => s.completed).length
-  const totalSteps = objective.steps.length
   const totalEvidence = objective.evidence.length
 
   return (
@@ -65,15 +63,9 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
       </div>
 
       {/* Info line */}
-      {(totalSteps > 0 || totalEvidence > 0) && (
+      {totalEvidence > 0 && (
         <p className="text-xs text-neutral-400 mb-3">
-          {totalSteps > 0 && (
-            <span>{completedSteps}/{totalSteps} steps</span>
-          )}
-          {totalSteps > 0 && totalEvidence > 0 && <span> &middot; </span>}
-          {totalEvidence > 0 && (
-            <span>{totalEvidence} evidence</span>
-          )}
+          {totalEvidence} evidence
         </p>
       )}
 

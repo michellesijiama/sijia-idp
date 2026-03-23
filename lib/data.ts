@@ -29,11 +29,6 @@ export const SAMPLE_CATEGORIES: Category[] = [
             deadline: '2026-06-30',
             status: 'In Progress',
             progress: 65,
-            steps: [
-              { id: 'step-1', text: 'Complete A Cloud Guru course (all modules)', completed: true },
-              { id: 'step-2', text: 'Take 3 practice exams with score >80%', completed: true },
-              { id: 'step-3', text: 'Schedule and pass the official exam', completed: false },
-            ],
             evidence: [
               {
                 id: 'ev-1',
@@ -69,11 +64,6 @@ export const SAMPLE_CATEGORIES: Category[] = [
             deadline: '2026-09-30',
             status: 'In Progress',
             progress: 40,
-            steps: [
-              { id: 'step-4', text: 'Read "Designing Data-Intensive Applications"', completed: true },
-              { id: 'step-5', text: 'Complete system design mock interviews (5)', completed: false },
-              { id: 'step-6', text: 'Apply patterns to Q3 architecture proposal', completed: false },
-            ],
             evidence: [
               {
                 id: 'ev-3',
@@ -110,13 +100,6 @@ export const SAMPLE_CATEGORIES: Category[] = [
             deadline: '2026-08-31',
             status: 'In Progress',
             progress: 50,
-            steps: [
-              { id: 'step-7', text: 'Define project scope and create project charter', completed: true },
-              { id: 'step-8', text: 'Establish weekly cross-team sync cadence', completed: true },
-              { id: 'step-9', text: 'Complete Phase 1: Discovery & Design', completed: true },
-              { id: 'step-10', text: 'Complete Phase 2: Implementation', completed: false },
-              { id: 'step-11', text: 'Complete Phase 3: Launch & Retrospective', completed: false },
-            ],
             evidence: [
               {
                 id: 'ev-4',
@@ -145,12 +128,6 @@ export const SAMPLE_CATEGORIES: Category[] = [
             deadline: '2026-03-31',
             status: 'Completed',
             progress: 100,
-            steps: [
-              { id: 'step-12', text: 'Identify and confirm first talk topic', completed: true },
-              { id: 'step-13', text: 'Deliver first talk: "Optimizing React Performance"', completed: true },
-              { id: 'step-14', text: 'Identify and confirm second talk topic', completed: true },
-              { id: 'step-15', text: 'Deliver second talk: "Practical TypeScript Patterns"', completed: true },
-            ],
             evidence: [
               {
                 id: 'ev-5',
@@ -194,13 +171,6 @@ export const SAMPLE_CATEGORIES: Category[] = [
             deadline: '2026-12-31',
             status: 'In Progress',
             progress: 75,
-            steps: [
-              { id: 'step-16', text: 'Identify mentees and establish mentorship agreements', completed: true },
-              { id: 'step-17', text: 'Complete Q1 mentorship sessions (6 sessions each)', completed: true },
-              { id: 'step-18', text: 'Complete Q2 mentorship sessions', completed: true },
-              { id: 'step-19', text: 'Complete Q3 mentorship sessions', completed: false },
-              { id: 'step-20', text: 'Complete Q4 mentorship sessions + retrospective', completed: false },
-            ],
             evidence: [
               {
                 id: 'ev-7',

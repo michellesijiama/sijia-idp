@@ -1,12 +1,11 @@
 'use client'
 
 import React, { useState, useEffect } from 'react'
-import { Objective, STATUSES, Status } from '@/lib/types'
+import { Objective, STATUSES } from '@/lib/types'
 import { formatDateTime } from '@/lib/utils'
 import { Modal } from '@/components/ui/Modal'
 import { Button } from '@/components/ui/Button'
 import { ProgressSlider } from './ProgressSlider'
-import { StepList } from './StepList'
 import { EvidenceSection } from './EvidenceSection'
 import { useIDPContext } from '@/app/providers'
 import { Save, Clock } from 'lucide-react'
@@ -28,10 +27,6 @@ export function ObjectiveModal({
 }: ObjectiveModalProps) {
   const {
     updateObjective,
-    addStep,
-    toggleStep,
-    updateStep,
-    deleteStep,
     addEvidence,
     deleteEvidence,
   } = useIDPContext()
@@ -113,55 +108,39 @@ export function ObjectiveModal({
         {/* Scrollable body */}
         <div className="flex-1 overflow-y-auto">
           <div className="p-5 space-y-6">
+            {/* Description */}
+            <div>
+              <label className="block text-sm font-medium text-neutral-700 mb-1.5">
+                Description
+              </label>
+              <textarea
+                value={currentObj.description}
+                onChange={(e) => set('description', e.target.value)}
+                placeholder="Describe this objective in detail..."
+                rows={3}
+                className="w-full px-3 py-2 text-sm text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 resize-none"
+              />
+            </div>
+
             <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-              {/* Left col */}
-              <div className="space-y-5">
-                {/* Description */}
-                <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-                    Description
-                  </label>
-                  <textarea
-                    value={currentObj.description}
-                    onChange={(e) => set('description', e.target.value)}
-                    placeholder="Describe this objective in detail..."
-                    rows={3}
-                    className="w-full px-3 py-2 text-sm text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 resize-none"
-                  />
-                </div>
-
-                {/* Deadline */}
-                <div>
-                  <label className="block text-sm font-medium text-neutral-700 mb-1.5">
-                    Deadline
-                  </label>
-                  <input
-                    type="date"
-                    value={currentObj.deadline}
-                    onChange={(e) => set('deadline', e.target.value)}
-                    className="h-9 px-3 text-sm text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent w-full"
-                  />
-                </div>
-
-                {/* Progress slider */}
-                <ProgressSlider
-                  value={currentObj.progress}
-                  onChange={(v) => set('progress', v)}
-                />
-              </div>
-
-              {/* Right col: steps */}
+              {/* Deadline */}
               <div>
-                <StepList
-                  steps={currentObj.steps}
-                  onAdd={(text) => addStep(categoryId, subCategoryId, objective.id, text)}
-                  onToggle={(stepId) => toggleStep(categoryId, subCategoryId, objective.id, stepId)}
-                  onUpdate={(stepId, updates) =>
-                    updateStep(categoryId, subCategoryId, objective.id, stepId, updates)
-                  }
-                  onDelete={(stepId) => deleteStep(categoryId, subCategoryId, objective.id, stepId)}
+                <label className="block text-sm font-medium text-neutral-700 mb-1.5">
+                  Deadline
+                </label>
+                <input
+                  type="date"
+                  value={currentObj.deadline}
+                  onChange={(e) => set('deadline', e.target.value)}
+                  className="h-9 px-3 text-sm text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent w-full"
                 />
               </div>
+
+              {/* Progress slider */}
+              <ProgressSlider
+                value={currentObj.progress}
+                onChange={(v) => set('progress', v)}
+              />
             </div>
 
             {/* Evidence section */}

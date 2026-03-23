@@ -1,4 +1,4 @@
-import { Category, SubCategory, Objective, Step, Evidence, IDPState } from './types'
+import { Category, SubCategory, Objective, Evidence, IDPState } from './types'
 import { SAMPLE_STATE } from './data'
 
 const STORAGE_KEY = 'my-idp-data'
@@ -38,19 +38,10 @@ export function createObjective(partial: Partial<Objective> = {}): Objective {
     deadline: new Date(new Date().getFullYear(), 11, 31).toISOString().split('T')[0],
     status: 'Not Started',
     progress: 0,
-    steps: [],
     evidence: [],
     createdAt: now,
     updatedAt: now,
     ...partial,
-  }
-}
-
-export function createStep(text: string): Step {
-  return {
-    id: generateId(),
-    text,
-    completed: false,
   }
 }
 
@@ -147,11 +138,6 @@ function migrateFromOldFormat(old: {
       deadline: goal.dueDate || '',
       status: (goal.status as Objective['status']) || 'Not Started',
       progress: goal.progress || 0,
-      steps: (goal.milestones || []).map((m) => ({
-        id: m.id,
-        text: m.text,
-        completed: m.completed,
-      })),
       evidence: (goal.evidenceNotes || []).map((n) => ({
         id: n.id,
         type: 'link' as const,

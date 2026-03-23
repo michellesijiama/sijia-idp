@@ -6,7 +6,6 @@ import {
   Category,
   SubCategory,
   Objective,
-  Step,
   Evidence,
   UserSettings,
 } from '@/lib/types'
@@ -15,7 +14,6 @@ import {
   createCategory,
   createSubCategory,
   createObjective,
-  createStep,
   createEvidence,
 } from '@/lib/store'
 
@@ -187,89 +185,6 @@ export function useIDP(
     [state, persist]
   )
 
-  // ── Step CRUD ───────────────────────────────────────────────────────────
-
-  const addStep = useCallback(
-    (catId: string, subCatId: string, objId: string, text: string) => {
-      const step = createStep(text)
-      const now = new Date().toISOString()
-      const categories = updateCategories(state.categories, catId, (cat) => ({
-        ...cat,
-        subCategories: updateSubCategories(cat.subCategories, subCatId, (sub) => ({
-          ...sub,
-          objectives: updateObjectives(sub.objectives, objId, (obj) => ({
-            ...obj,
-            steps: [...obj.steps, step],
-            updatedAt: now,
-          })),
-        })),
-      }))
-      persist({ ...state, categories })
-    },
-    [state, persist]
-  )
-
-  const toggleStep = useCallback(
-    (catId: string, subCatId: string, objId: string, stepId: string) => {
-      const now = new Date().toISOString()
-      const categories = updateCategories(state.categories, catId, (cat) => ({
-        ...cat,
-        subCategories: updateSubCategories(cat.subCategories, subCatId, (sub) => ({
-          ...sub,
-          objectives: updateObjectives(sub.objectives, objId, (obj) => ({
-            ...obj,
-            steps: obj.steps.map((s) =>
-              s.id === stepId ? { ...s, completed: !s.completed } : s
-            ),
-            updatedAt: now,
-          })),
-        })),
-      }))
-      persist({ ...state, categories })
-    },
-    [state, persist]
-  )
-
-  const updateStep = useCallback(
-    (catId: string, subCatId: string, objId: string, stepId: string, updates: Partial<Step>) => {
-      const now = new Date().toISOString()
-      const categories = updateCategories(state.categories, catId, (cat) => ({
-        ...cat,
-        subCategories: updateSubCategories(cat.subCategories, subCatId, (sub) => ({
-          ...sub,
-          objectives: updateObjectives(sub.objectives, objId, (obj) => ({
-            ...obj,
-            steps: obj.steps.map((s) =>
-              s.id === stepId ? { ...s, ...updates } : s
-            ),
-            updatedAt: now,
-          })),
-        })),
-      }))
-      persist({ ...state, categories })
-    },
-    [state, persist]
-  )
-
-  const deleteStep = useCallback(
-    (catId: string, subCatId: string, objId: string, stepId: string) => {
-      const now = new Date().toISOString()
-      const categories = updateCategories(state.categories, catId, (cat) => ({
-        ...cat,
-        subCategories: updateSubCategories(cat.subCategories, subCatId, (sub) => ({
-          ...sub,
-          objectives: updateObjectives(sub.objectives, objId, (obj) => ({
-            ...obj,
-            steps: obj.steps.filter((s) => s.id !== stepId),
-            updatedAt: now,
-          })),
-        })),
-      }))
-      persist({ ...state, categories })
-    },
-    [state, persist]
-  )
-
   // ── Evidence CRUD ───────────────────────────────────────────────────────
 
   const addEvidence = useCallback(
@@ -373,10 +288,6 @@ export function useIDP(
     addObjective,
     updateObjective,
     deleteObjective,
-    addStep,
-    toggleStep,
-    updateStep,
-    deleteStep,
     addEvidence,
     deleteEvidence,
     updateSettings,
