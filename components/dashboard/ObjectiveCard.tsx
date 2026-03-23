@@ -3,8 +3,6 @@
 import React from 'react'
 import { Objective } from '@/lib/types'
 import { formatDate, getDueDateStatus } from '@/lib/utils'
-import { StatusBadge } from '@/components/ui/Badge'
-import { ProgressBar } from '@/components/ui/ProgressBar'
 import { Button } from '@/components/ui/Button'
 import { Calendar, Edit3, Trash2 } from 'lucide-react'
 
@@ -20,9 +18,11 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
 
   return (
     <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-4 animate-slide-up transition-all duration-200 hover:bg-white/80 hover:shadow-lg hover:border-white/60 group">
-      {/* Status */}
+      {/* Status + Progress */}
       <div className="flex items-center justify-between gap-2 mb-3">
-        <StatusBadge status={objective.status} />
+        <span className="inline-flex items-center gap-1.5 text-sm font-semibold bg-white/40 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-black/[0.04] text-black">
+          {objective.status} · {objective.progress}%
+        </span>
       </div>
 
       {/* Title */}
@@ -39,11 +39,6 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
           {objective.description}
         </p>
       )}
-
-      {/* Progress */}
-      <div className="mb-3">
-        <ProgressBar value={objective.progress} showLabel size="md" animated />
-      </div>
 
       {/* Due date */}
       <div className="flex items-center gap-1.5 mb-3">

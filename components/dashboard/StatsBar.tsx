@@ -34,30 +34,13 @@ export function StatsBar({ stats }: StatsBarProps) {
         ))}
       </div>
 
-      <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-4 animate-slide-up shadow-sm">
-        <div className="flex items-center justify-between mb-2">
-          <span className="text-sm font-semibold text-black">Overall Progress</span>
-          <span className="text-sm font-bold text-black">{stats.avgProgress}%</span>
-        </div>
-        <div className="w-full h-2 bg-black/[0.06] rounded-full overflow-hidden">
-          <div
-            className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-full"
-            style={{
-              width: `${stats.avgProgress}%`,
-              transition: 'width 0.8s cubic-bezier(0.4, 0, 0.2, 1)',
-            }}
-          />
-        </div>
-        <div className="flex items-center gap-4 mt-2">
-          <span className="text-sm text-neutral-400">
-            {stats.completed} of {stats.total} objectives completed
-          </span>
-          {stats.total > 0 && (
-            <span className="text-sm text-neutral-400">
-              {Math.round((stats.completed / stats.total) * 100)}% completion rate
-            </span>
-          )}
-        </div>
+      <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-4 animate-slide-up shadow-sm flex items-center justify-between">
+        <span className="text-sm text-neutral-500">
+          {stats.completed} of {stats.total} objectives completed
+        </span>
+        <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-bold bg-black text-white">
+          {stats.avgProgress}% Overall
+        </span>
       </div>
     </div>
   )

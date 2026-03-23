@@ -57,17 +57,10 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
             </div>
           ))}
         </div>
-        <div className="mt-8">
-          <div className="flex items-center justify-between mb-2">
-            <span className="text-base font-medium text-neutral-600">Overall Progress</span>
-            <span className="text-base font-bold text-black">{stats.avgProgress}%</span>
-          </div>
-          <div className="w-full h-3 bg-black/[0.06] rounded-full overflow-hidden">
-            <div
-              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-full transition-all duration-1000"
-              style={{ width: `${stats.avgProgress}%` }}
-            />
-          </div>
+        <div className="mt-6 text-center">
+          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-base font-bold bg-black text-white">
+            {stats.avgProgress}% Overall
+          </span>
         </div>
       </section>
 
@@ -133,21 +126,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                               </p>
                             )}
                           </div>
-                          <StatusPill status={obj.status} />
-                        </div>
-
-                        {/* Progress */}
-                        <div className="mb-4">
-                          <div className="flex items-center justify-between mb-1.5">
-                            <span className="text-sm text-neutral-400">Progress</span>
-                            <span className="text-base font-bold text-black">{obj.progress}%</span>
-                          </div>
-                          <div className="w-full h-2.5 bg-black/[0.06] rounded-full overflow-hidden">
-                            <div
-                              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-full"
-                              style={{ width: `${obj.progress}%` }}
-                            />
-                          </div>
+                          <StatusPill status={obj.status} progress={obj.progress} />
                         </div>
 
                         {/* Deadline */}
@@ -234,7 +213,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
   )
 }
 
-function StatusPill({ status }: { status: string }) {
+function StatusPill({ status, progress }: { status: string; progress: number }) {
   const styles = {
     'Completed': 'bg-black text-white',
     'In Progress': 'bg-white/60 border border-black/20 text-black',
@@ -243,7 +222,7 @@ function StatusPill({ status }: { status: string }) {
 
   return (
     <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold flex-shrink-0 ${styles}`}>
-      {status}
+      {status} · {progress}%
     </span>
   )
 }
