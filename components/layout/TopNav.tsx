@@ -3,8 +3,7 @@
 import React, { useState } from 'react'
 import { getInitials } from '@/lib/utils'
 import { useIDPContext } from '@/app/providers'
-import { Printer, ChevronDown, TrendingUp, Cloud, Eye, Pencil } from 'lucide-react'
-import { Button } from '@/components/ui/Button'
+import { ChevronDown, TrendingUp, Cloud, Eye, Pencil } from 'lucide-react'
 
 interface TopNavProps {
   onMenuOpen: () => void
@@ -110,11 +109,6 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
         )}
       </div>
 
-      {/* Export */}
-      <Button variant="outline" size="sm" onClick={() => window.print()} className="print-hide hidden sm:flex">
-        <Printer size={13} />
-        Export
-      </Button>
 
       {/* User avatar */}
       {mode === 'edit' && (

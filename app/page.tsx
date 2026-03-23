@@ -160,7 +160,7 @@ function CategoriesView({
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => onEditCategory(cat)}
-                    className="p-2 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+                    className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
                     aria-label="Edit category"
                   >
                     <Edit3 size={16} />
@@ -169,7 +169,7 @@ function CategoriesView({
                     onClick={() => {
                       if (confirm(`Delete "${cat.name}"?`)) deleteCategory(cat.id)
                     }}
-                    className="p-2 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+                    className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
                     aria-label="Delete category"
                   >
                     <Trash2 size={16} />
@@ -195,7 +195,7 @@ function CategoriesView({
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => onEditSubCategory(cat.id, sub)}
-                        className="p-2 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
+                        className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
                         aria-label="Edit sub-category"
                       >
                         <Edit3 size={14} />
@@ -204,7 +204,7 @@ function CategoriesView({
                         onClick={() => {
                           if (confirm(`Delete "${sub.name}"?`)) deleteSubCategory(cat.id, sub.id)
                         }}
-                        className="p-2 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
+                        className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
                         aria-label="Delete sub-category"
                       >
                         <Trash2 size={14} />

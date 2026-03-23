@@ -179,10 +179,6 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                                       (e.target as HTMLImageElement).style.display = 'none'
                                     }}
                                   />
-                                  <div className="px-4 py-2 bg-white/40">
-                                    <p className="text-sm font-medium text-black">{ev.title}</p>
-                                    <p className="text-sm text-neutral-400">{formatDate(ev.addedAt)}</p>
-                                  </div>
                                 </div>
                               ))}
                             </div>

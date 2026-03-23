@@ -115,7 +115,7 @@ export function Modal({
             <button
               ref={closeBtnRef}
               onClick={onClose}
-              className="ml-3 flex-shrink-0 p-1.5 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+              className="ml-3 flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
               aria-label="Close"
             >
               <X size={18} />

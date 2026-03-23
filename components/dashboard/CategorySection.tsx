@@ -64,7 +64,7 @@ export function CategorySection({
         <div className="flex items-center gap-1 flex-shrink-0">
           <button
             onClick={() => onEditCategory(category)}
-            className="p-1.5 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+            className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
             title="Edit category"
           >
             <Edit3 size={14} />
@@ -75,7 +75,7 @@ export function CategorySection({
                 onDeleteCategory(category.id)
               }
             }}
-            className="p-1.5 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+            className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
             title="Delete category"
           >
             <Trash2 size={14} />
