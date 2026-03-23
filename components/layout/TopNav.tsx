@@ -23,7 +23,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       {/* Mobile hamburger */}
       {mode === 'edit' && (
         <button className="lg:hidden flex items-center gap-2 mr-1" onClick={onMenuOpen} aria-label="Open menu">
-          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-black to-neutral-700 shadow-md">
+          <div className="w-7 h-7 flex items-center justify-center rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-md">
             <TrendingUp size={12} className="text-white" />
           </div>
           <span className="font-semibold text-sm text-black">My IDP</span>
@@ -32,7 +32,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
 
       {mode === 'review' && (
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-black to-neutral-700 shadow-md">
+          <div className="w-7 h-7 flex items-center justify-center rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-md">
             <TrendingUp size={12} className="text-white" />
           </div>
           <span className="font-semibold text-sm text-black">My IDP</span>
@@ -50,11 +50,11 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       )}
 
       {/* Mode toggle */}
-      <div className="flex items-center bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-lg p-0.5">
+      <div className="flex items-center bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-none p-0.5">
         <button
           onClick={() => onModeChange('review')}
           className={cn(
-            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md transition-all duration-150',
+            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-none transition-all duration-150',
             mode === 'review'
               ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
               : 'text-neutral-500 hover:bg-white/60'
@@ -66,7 +66,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
         <button
           onClick={() => onModeChange('edit')}
           className={cn(
-            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md transition-all duration-150',
+            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-none transition-all duration-150',
             mode === 'edit'
               ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
               : 'text-neutral-500 hover:bg-white/60'
@@ -81,13 +81,13 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       <div className="relative">
         <button
           onClick={() => setYearOpen((o) => !o)}
-          className="flex items-center gap-1.5 h-7 px-3 text-xs font-medium bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-lg text-black hover:bg-white/80 transition-all duration-150 shadow-sm"
+          className="flex items-center gap-1.5 h-7 px-3 text-xs font-medium bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-none text-black hover:bg-white/80 transition-all duration-150 shadow-sm"
         >
           {activeYear}
           <ChevronDown size={12} className="text-neutral-400" />
         </button>
         {yearOpen && (
-          <div className="absolute right-0 top-full mt-1 py-1 w-24 z-50 animate-slide-down bg-white/80 backdrop-blur-xl border border-white/40 rounded-xl shadow-lg">
+          <div className="absolute right-0 top-full mt-1 py-1 w-24 z-50 animate-slide-down bg-white/80 backdrop-blur-xl border border-white/40 rounded-none shadow-lg">
             {years.map((y) => (
               <button
                 key={y}
@@ -113,7 +113,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       {/* User avatar */}
       {mode === 'edit' && (
         <div className="hidden md:flex items-center gap-2">
-          <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-neutral-100 to-neutral-200 shadow-sm border border-white/50">
+          <div className="w-7 h-7 rounded-none flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-neutral-100 to-neutral-200 shadow-sm border border-white/50">
             <span className="text-[11px] font-semibold text-black">
               {getInitials(settings.name || 'S')}
             </span>

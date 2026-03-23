@@ -117,21 +117,21 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
 
       {/* Link form */}
       {showLinkForm && (
-        <div className="border border-black/10 rounded-xl p-3 space-y-2 animate-slide-up bg-white/50 backdrop-blur-sm">
+        <div className="border border-black/10 rounded-none p-3 space-y-2 animate-slide-up bg-white/50 backdrop-blur-sm">
           <input
             autoFocus
             type="url"
             value={linkUrl}
             onChange={(e) => setLinkUrl(e.target.value)}
             placeholder="Paste URL..."
-            className="w-full h-10 px-3 text-base border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
+            className="w-full h-10 px-3 text-base border border-black/[0.06] rounded-none bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
           />
           <input
             type="text"
             value={linkTitle}
             onChange={(e) => setLinkTitle(e.target.value)}
             placeholder="Title for this link..."
-            className="w-full h-10 px-3 text-base border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
+            className="w-full h-10 px-3 text-base border border-black/[0.06] rounded-none bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault()
@@ -162,7 +162,7 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
           {evidence.map((ev) => (
             <div
               key={ev.id}
-              className="border border-white/40 rounded-xl overflow-hidden bg-white/50 backdrop-blur-sm group hover:bg-white/70 hover:shadow-md transition-all duration-200"
+              className="border border-white/40 rounded-none overflow-hidden bg-white/50 backdrop-blur-sm group hover:bg-white/70 hover:shadow-md transition-all duration-200"
             >
               {ev.type === 'image' ? (
                 <a href={ev.url} target="_blank" rel="noopener noreferrer" className="block h-32 bg-black/[0.03] relative cursor-pointer">
@@ -207,7 +207,7 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
                   onClick={() => {
                     if (confirm('Delete this evidence?')) onDelete(ev.id)
                   }}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity w-7 h-7 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] flex-shrink-0"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity w-7 h-7 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.05] flex-shrink-0"
                   aria-label="Delete evidence"
                 >
                   <Trash2 size={12} />
@@ -217,7 +217,7 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
           ))}
         </div>
       ) : (
-        <div className="py-8 text-center border border-dashed border-black/[0.08] rounded-xl">
+        <div className="py-8 text-center border border-dashed border-black/[0.08] rounded-none">
           <Image size={24} className="mx-auto mb-2 text-neutral-300" />
           <p className="text-xs text-neutral-400">No evidence yet.</p>
           <p className="text-xs text-neutral-400">Attach images or add links above.</p>

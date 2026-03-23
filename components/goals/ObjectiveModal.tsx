@@ -98,12 +98,12 @@ export function ObjectiveModal({
           />
           <div className="flex items-center gap-2 flex-wrap">
             {/* Status selector */}
-            <div className="flex items-center gap-1 bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-lg p-0.5">
+            <div className="flex items-center gap-1 bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-none p-0.5">
               {STATUSES.map((s) => (
                 <button
                   key={s}
                   onClick={() => set('status', s)}
-                  className={`px-2.5 py-1 text-sm font-medium rounded-md transition-all duration-150 ${
+                  className={`px-2.5 py-1 text-sm font-medium rounded-none transition-all duration-150 ${
                     currentObj.status === s
                       ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
                       : 'text-neutral-500 hover:bg-white/60'
@@ -135,7 +135,7 @@ export function ObjectiveModal({
                 onChange={(e) => set('description', e.target.value)}
                 placeholder="Describe this objective in detail..."
                 rows={3}
-                className="w-full px-3 py-2 text-base text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 resize-none"
+                className="w-full px-3 py-2 text-base text-black border border-black/[0.06] rounded-none bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 resize-none"
               />
             </div>
 
@@ -149,7 +149,7 @@ export function ObjectiveModal({
                   type="date"
                   value={currentObj.deadline}
                   onChange={(e) => set('deadline', e.target.value)}
-                  className="h-10 px-3 text-base text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent w-full"
+                  className="h-10 px-3 text-base text-black border border-black/[0.06] rounded-none bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent w-full"
                 />
               </div>
 

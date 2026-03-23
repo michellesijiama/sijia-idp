@@ -52,14 +52,14 @@ export function MobileNav({ open, onClose, activeSection, onNavigate }: MobileNa
       >
         <div className="flex items-center justify-between px-4 h-12 border-b border-black/5">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-black to-neutral-700 shadow-md">
+            <div className="w-7 h-7 flex items-center justify-center rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-md">
               <TrendingUp size={13} className="text-white" />
             </div>
             <span className="font-semibold text-sm text-black">My IDP</span>
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-colors"
             aria-label="Close menu"
           >
             <X size={17} />
@@ -78,14 +78,14 @@ export function MobileNav({ open, onClose, activeSection, onNavigate }: MobileNa
                   onClose()
                 }}
                 className={cn(
-                  'w-full flex items-center gap-2.5 px-3 py-2 text-sm relative rounded-lg transition-all duration-150',
+                  'w-full flex items-center gap-2.5 px-3 py-2 text-sm relative rounded-none transition-all duration-150',
                   isActive
                     ? 'bg-black/[0.06] text-black font-semibold'
                     : 'text-neutral-500 hover:bg-black/[0.03]'
                 )}
               >
                 {isActive && (
-                  <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] bg-gradient-to-b from-black to-neutral-600 rounded-full" />
+                  <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] bg-gradient-to-b from-black to-neutral-600 rounded-none" />
                 )}
                 <Icon
                   size={16}

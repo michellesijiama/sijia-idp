@@ -36,7 +36,7 @@ function SettingsView() {
         <p className="text-base text-neutral-500">Manage your profile and preferences</p>
       </div>
 
-      <div className="bg-white/60 backdrop-blur-xl p-5 space-y-4 rounded-xl border border-white/40 shadow-sm">
+      <div className="bg-white/60 backdrop-blur-xl p-5 space-y-4 rounded-none border border-white/40 shadow-sm">
         <h3 className="text-base font-semibold text-black pb-2 border-b border-black/[0.04]">
           Profile Information
         </h3>
@@ -54,7 +54,7 @@ function SettingsView() {
               value={form[key as keyof typeof form] as string}
               onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
               placeholder={placeholder}
-              className="w-full h-10 px-3 text-base bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+              className="w-full h-10 px-3 text-base bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-none text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
             />
           </div>
         ))}
@@ -64,7 +64,7 @@ function SettingsView() {
           <select
             value={form.year}
             onChange={(e) => setForm((f) => ({ ...f, year: Number(e.target.value) }))}
-            className="w-full h-10 px-3 text-base bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full h-10 px-3 text-base bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-none text-black focus:outline-none focus:ring-2 focus:ring-black"
           >
             {[2025, 2026, 2027].map((y) => (
               <option key={y} value={y}>
@@ -80,7 +80,7 @@ function SettingsView() {
       </div>
 
       {/* Danger zone */}
-      <div className="bg-white/60 backdrop-blur-xl p-5 space-y-3 rounded-xl border border-black/[0.08] shadow-sm">
+      <div className="bg-white/60 backdrop-blur-xl p-5 space-y-3 rounded-none border border-black/[0.08] shadow-sm">
         <h3 className="text-base font-semibold text-black">Danger Zone</h3>
         <p className="text-sm text-neutral-500">
           Reset all data and start fresh. This cannot be undone.
@@ -132,7 +132,7 @@ function CategoriesView({
       </div>
 
       {state.categories.length === 0 ? (
-        <div className="text-center py-16 bg-white/50 backdrop-blur-xl rounded-xl border border-dashed border-black/[0.08]">
+        <div className="text-center py-16 bg-white/50 backdrop-blur-xl rounded-none border border-dashed border-black/[0.08]">
           <FolderOpen size={36} className="mx-auto mb-3 text-neutral-300" />
           <h3 className="text-lg font-semibold mb-1 text-black">No categories yet</h3>
           <p className="text-base mb-4 text-neutral-400">
@@ -148,7 +148,7 @@ function CategoriesView({
           {state.categories.map((cat) => (
             <div
               key={cat.id}
-              className="bg-white/60 backdrop-blur-xl rounded-xl border border-white/40 shadow-sm overflow-hidden"
+              className="bg-white/60 backdrop-blur-xl rounded-none border border-white/40 shadow-sm overflow-hidden"
             >
               <div className="p-4 flex items-center justify-between border-b border-black/[0.04]">
                 <div>
@@ -160,7 +160,7 @@ function CategoriesView({
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => onEditCategory(cat)}
-                    className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+                    className="w-8 h-8 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
                     aria-label="Edit category"
                   >
                     <Edit3 size={16} />
@@ -169,7 +169,7 @@ function CategoriesView({
                     onClick={() => {
                       if (confirm(`Delete "${cat.name}"?`)) deleteCategory(cat.id)
                     }}
-                    className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+                    className="w-8 h-8 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
                     aria-label="Delete category"
                   >
                     <Trash2 size={16} />
@@ -181,7 +181,7 @@ function CategoriesView({
                 {cat.subCategories.map((sub) => (
                   <div
                     key={sub.id}
-                    className="flex items-center justify-between p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-black/[0.04]"
+                    className="flex items-center justify-between p-3 rounded-none bg-white/40 backdrop-blur-sm border border-black/[0.04]"
                   >
                     <div>
                       <p className="text-base font-medium text-black">{sub.name}</p>
@@ -195,7 +195,7 @@ function CategoriesView({
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => onEditSubCategory(cat.id, sub)}
-                        className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
+                        className="w-8 h-8 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
                         aria-label="Edit sub-category"
                       >
                         <Edit3 size={14} />
@@ -204,7 +204,7 @@ function CategoriesView({
                         onClick={() => {
                           if (confirm(`Delete "${sub.name}"?`)) deleteSubCategory(cat.id, sub.id)
                         }}
-                        className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
+                        className="w-8 h-8 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
                         aria-label="Delete sub-category"
                       >
                         <Trash2 size={14} />
@@ -215,7 +215,7 @@ function CategoriesView({
 
                 <button
                   onClick={() => onAddSubCategory(cat.id)}
-                  className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-lg border border-dashed border-black/[0.08] text-neutral-400 text-sm font-medium hover:border-black/[0.15] hover:text-neutral-600 hover:bg-white/40 transition-all duration-200"
+                  className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-none border border-dashed border-black/[0.08] text-neutral-400 text-sm font-medium hover:border-black/[0.15] hover:text-neutral-600 hover:bg-white/40 transition-all duration-200"
                 >
                   <Plus size={14} />
                   Add Sub-Category
@@ -430,7 +430,7 @@ export default function Page() {
               </div>
 
               {state.categories.length === 0 && (
-                <div className="text-center py-16 bg-white/50 backdrop-blur-xl rounded-xl border border-dashed border-black/[0.08]">
+                <div className="text-center py-16 bg-white/50 backdrop-blur-xl rounded-none border border-dashed border-black/[0.08]">
                   <TrendingUp size={36} className="mx-auto mb-3 text-neutral-300" />
                   <h3 className="text-lg font-semibold mb-1 text-black">No categories yet</h3>
                   <p className="text-base mb-4 text-neutral-400">

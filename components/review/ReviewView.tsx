@@ -21,7 +21,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
     <div className="max-w-4xl mx-auto py-8 px-4 lg:px-0 space-y-12 animate-fade-in">
       {/* Title Slide */}
       <section className="text-center py-16">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br from-black to-neutral-700 shadow-lg mb-6">
+        <div className="inline-flex items-center justify-center w-14 h-14 rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-lg mb-6">
           <TrendingUp size={24} className="text-white" />
         </div>
         <h1 className="text-4xl font-bold text-black tracking-tight mb-2">
@@ -41,7 +41,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
       </section>
 
       {/* Overview Stats */}
-      <section className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-2xl p-8 shadow-sm">
+      <section className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-8 shadow-sm">
         <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-widest mb-6">Overview</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
@@ -61,9 +61,9 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
             <span className="text-base font-medium text-neutral-600">Overall Progress</span>
             <span className="text-base font-bold text-black">{stats.avgProgress}%</span>
           </div>
-          <div className="w-full h-3 bg-black/[0.06] rounded-full overflow-hidden">
+          <div className="w-full h-3 bg-black/[0.06] rounded-none overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-full transition-all duration-1000"
+              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-none transition-all duration-1000"
               style={{ width: `${stats.avgProgress}%` }}
             />
           </div>
@@ -118,7 +118,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                     return (
                       <div
                         key={obj.id}
-                        className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-2xl p-6 shadow-sm"
+                        className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-6 shadow-sm"
                       >
                         {/* Header row */}
                         <div className="flex items-start justify-between gap-4 mb-4">
@@ -141,9 +141,9 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                             <span className="text-sm text-neutral-400">Progress</span>
                             <span className="text-base font-bold text-black">{obj.progress}%</span>
                           </div>
-                          <div className="w-full h-2.5 bg-black/[0.06] rounded-full overflow-hidden">
+                          <div className="w-full h-2.5 bg-black/[0.06] rounded-none overflow-hidden">
                             <div
-                              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-full"
+                              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-none"
                               style={{ width: `${obj.progress}%` }}
                             />
                           </div>
@@ -169,7 +169,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                           <div className="border-t border-black/[0.04] pt-4 mb-4">
                             <div className="space-y-3">
                               {imageEvidence.map((ev) => (
-                                <div key={ev.id} className="rounded-xl overflow-hidden border border-black/[0.04]">
+                                <div key={ev.id} className="rounded-none overflow-hidden border border-black/[0.04]">
                                   {/* eslint-disable-next-line @next/next/no-img-element */}
                                   <img
                                     src={ev.url}
@@ -198,9 +198,9 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                                   href={ev.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center gap-3 p-3 rounded-lg bg-white/40 border border-black/[0.04] hover:bg-white/70 hover:shadow-sm transition-all duration-150 group"
+                                  className="flex items-center gap-3 p-3 rounded-none bg-white/40 border border-black/[0.04] hover:bg-white/70 hover:shadow-sm transition-all duration-150 group"
                                 >
-                                  <div className="w-10 h-10 rounded-lg bg-black/[0.03] flex-shrink-0 flex items-center justify-center">
+                                  <div className="w-10 h-10 rounded-none bg-black/[0.03] flex-shrink-0 flex items-center justify-center">
                                     <Link2 size={16} className="text-neutral-400" />
                                   </div>
                                   <div className="min-w-0 flex-1">
@@ -241,7 +241,7 @@ function StatusPill({ status }: { status: string }) {
   }[status] || 'bg-white/40 border border-black/[0.08] text-neutral-500'
 
   return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold flex-shrink-0 ${styles}`}>
+    <span className={`inline-flex items-center px-3 py-1 rounded-none text-sm font-semibold flex-shrink-0 ${styles}`}>
       {status}
     </span>
   )

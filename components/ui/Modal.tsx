@@ -94,7 +94,7 @@ export function Modal({
       <div
         ref={contentRef}
         className={cn(
-          'relative w-full rounded-2xl animate-scale-in flex flex-col max-h-[90vh]',
+          'relative w-full rounded-none animate-scale-in flex flex-col max-h-[90vh]',
           'bg-white/85 backdrop-blur-2xl border border-white/40 shadow-2xl',
           sizes[size],
           className
@@ -115,7 +115,7 @@ export function Modal({
             <button
               ref={closeBtnRef}
               onClick={onClose}
-              className="ml-3 flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+              className="ml-3 flex-shrink-0 w-8 h-8 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
               aria-label="Close"
             >
               <X size={18} />

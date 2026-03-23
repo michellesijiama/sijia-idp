@@ -20,7 +20,7 @@ export function Sidebar({ activeSection, onNavigate }: SidebarProps) {
     <aside className="hidden lg:flex flex-col w-56 shrink-0 fixed top-0 left-0 bottom-0 z-40 bg-white/70 backdrop-blur-xl border-r border-white/30 shadow-[1px_0_12px_rgba(0,0,0,0.03)]">
       {/* Logo area */}
       <div className="flex items-center gap-2.5 px-4 h-12 border-b border-black/5">
-        <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-black to-neutral-700 shadow-md">
+        <div className="w-7 h-7 flex items-center justify-center rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-md">
           <TrendingUp size={13} className="text-white" />
         </div>
         <span className="font-semibold text-black text-sm tracking-tight">My IDP</span>
@@ -36,14 +36,14 @@ export function Sidebar({ activeSection, onNavigate }: SidebarProps) {
               key={item.id}
               onClick={() => onNavigate(item.id)}
               className={cn(
-                'w-full flex items-center gap-2.5 px-3 py-2 text-sm relative rounded-lg transition-all duration-150',
+                'w-full flex items-center gap-2.5 px-3 py-2 text-sm relative rounded-none transition-all duration-150',
                 isActive
                   ? 'bg-black/[0.06] text-black font-semibold backdrop-blur-sm shadow-sm'
                   : 'text-neutral-500 hover:bg-black/[0.03] hover:text-black'
               )}
             >
               {isActive && (
-                <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] bg-gradient-to-b from-black to-neutral-600 rounded-full" />
+                <span className="absolute left-0 top-1.5 bottom-1.5 w-[3px] bg-gradient-to-b from-black to-neutral-600 rounded-none" />
               )}
               <Icon
                 size={16}

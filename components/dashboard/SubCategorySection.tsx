@@ -34,7 +34,7 @@ export function SubCategorySection({
         <div className="flex items-center gap-0.5 ml-auto flex-shrink-0">
           <button
             onClick={() => onEditSubCategory(catId, subCategory.id)}
-            className="w-7 h-7 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+            className="w-7 h-7 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
             title="Edit sub-category"
           >
             <Edit3 size={12} />
@@ -45,7 +45,7 @@ export function SubCategorySection({
                 onDeleteSubCategory(catId, subCategory.id)
               }
             }}
-            className="w-7 h-7 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+            className="w-7 h-7 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
             title="Delete sub-category"
           >
             <Trash2 size={12} />
@@ -70,7 +70,7 @@ export function SubCategorySection({
         {/* Add objective card */}
         <button
           onClick={() => onAddObjective(catId, subCategory.id)}
-          className="flex flex-col items-center justify-center gap-2 min-h-[120px] rounded-xl border-2 border-dashed border-black/[0.08] text-neutral-400 hover:border-black/[0.15] hover:text-neutral-600 hover:bg-white/40 hover:backdrop-blur-sm transition-all duration-200"
+          className="flex flex-col items-center justify-center gap-2 min-h-[120px] rounded-none border-2 border-dashed border-black/[0.08] text-neutral-400 hover:border-black/[0.15] hover:text-neutral-600 hover:bg-white/40 hover:backdrop-blur-sm transition-all duration-200"
         >
           <Plus size={20} />
           <span className="text-sm font-medium">Add objective</span>

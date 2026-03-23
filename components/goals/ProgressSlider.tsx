@@ -23,9 +23,9 @@ export function ProgressSlider({ value, onChange, disabled }: ProgressSliderProp
 
       {/* Slider */}
       <div className="relative pt-1">
-        <div className="relative h-2 bg-black/[0.06] rounded-full">
+        <div className="relative h-2 bg-black/[0.06] rounded-none">
           <div
-            className="absolute left-0 top-0 h-full rounded-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 transition-all duration-150"
+            className="absolute left-0 top-0 h-full rounded-none bg-gradient-to-r from-neutral-800 via-black to-neutral-700 transition-all duration-150"
             style={{ width: `${value}%` }}
           />
         </div>
@@ -43,7 +43,7 @@ export function ProgressSlider({ value, onChange, disabled }: ProgressSliderProp
         />
         {/* Thumb indicator */}
         <div
-          className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-black rounded-full shadow-md pointer-events-none transition-all duration-150"
+          className="absolute top-1/2 -translate-y-1/2 w-4 h-4 bg-white border-2 border-black rounded-none shadow-md pointer-events-none transition-all duration-150"
           style={{ left: `calc(${value}% - 8px)` }}
         />
       </div>
@@ -56,7 +56,7 @@ export function ProgressSlider({ value, onChange, disabled }: ProgressSliderProp
             onClick={() => !disabled && onChange(preset)}
             disabled={disabled}
             className={cn(
-              'text-sm font-medium px-2.5 py-1 rounded-md transition-all duration-150',
+              'text-sm font-medium px-2.5 py-1 rounded-none transition-all duration-150',
               value === preset
                 ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
                 : 'text-neutral-500 bg-white/50 backdrop-blur-sm border border-black/[0.04] hover:bg-white/80',

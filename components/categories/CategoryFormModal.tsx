@@ -48,7 +48,7 @@ export function CategoryFormModal({
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Enter name..."
-            className="w-full h-10 px-3 text-base text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400"
+            className="w-full h-10 px-3 text-base text-black border border-black/[0.06] rounded-none bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400"
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault()
@@ -66,7 +66,7 @@ export function CategoryFormModal({
             onChange={(e) => setDescription(e.target.value)}
             placeholder="Brief description..."
             rows={2}
-            className="w-full px-3 py-2 text-base text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 resize-none"
+            className="w-full px-3 py-2 text-base text-black border border-black/[0.06] rounded-none bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 resize-none"
           />
         </div>
         <div className="flex items-center justify-end gap-2 pt-2">

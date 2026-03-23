@@ -19,7 +19,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
   const totalEvidence = objective.evidence.length
 
   return (
-    <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-xl p-4 animate-slide-up transition-all duration-200 hover:bg-white/80 hover:shadow-lg hover:border-white/60 group">
+    <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-4 animate-slide-up transition-all duration-200 hover:bg-white/80 hover:shadow-lg hover:border-white/60 group">
       {/* Status */}
       <div className="flex items-center justify-between gap-2 mb-3">
         <StatusBadge status={objective.status} />

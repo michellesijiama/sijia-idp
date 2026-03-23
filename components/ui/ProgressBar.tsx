@@ -62,14 +62,14 @@ export function ProgressBar({
         </div>
       )}
       <div
-        className={cn('w-full overflow-hidden rounded-full bg-black/[0.06]', heights[size])}
+        className={cn('w-full overflow-hidden rounded-none bg-black/[0.06]', heights[size])}
         role="progressbar"
         aria-valuenow={value}
         aria-valuemin={0}
         aria-valuemax={100}
       >
         <div
-          className="h-full rounded-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700"
+          className="h-full rounded-none bg-gradient-to-r from-neutral-800 via-black to-neutral-700"
           style={{
             width: `${width}%`,
             transition: animated ? 'width 0.8s cubic-bezier(0.4, 0, 0.2, 1)' : 'width 0.3s ease',
