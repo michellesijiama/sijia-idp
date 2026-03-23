@@ -3,7 +3,7 @@
 import React from 'react'
 import { IDPState } from '@/lib/types'
 import { formatDate, getDueDateStatus } from '@/lib/utils'
-import { Calendar, ExternalLink, Image, Link2, TrendingUp } from 'lucide-react'
+import { Calendar, ExternalLink, Link2, TrendingUp } from 'lucide-react'
 
 interface ReviewViewProps {
   state: IDPState
@@ -30,19 +30,19 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
         <p className="text-lg text-neutral-500 mb-1">{state.activeYear}</p>
         <div className="mt-6 space-y-0.5">
           <p className="text-xl font-semibold text-black">{state.settings.name}</p>
-          <p className="text-sm text-neutral-500">
+          <p className="text-base text-neutral-500">
             {state.settings.title}
             {state.settings.department ? ` \u00b7 ${state.settings.department}` : ''}
           </p>
           {state.settings.manager && (
-            <p className="text-sm text-neutral-400">Manager: {state.settings.manager}</p>
+            <p className="text-base text-neutral-400">Manager: {state.settings.manager}</p>
           )}
         </div>
       </section>
 
       {/* Overview Stats */}
       <section className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-2xl p-8 shadow-sm">
-        <h2 className="text-xs font-semibold text-neutral-400 uppercase tracking-widest mb-6">Overview</h2>
+        <h2 className="text-sm font-semibold text-neutral-400 uppercase tracking-widest mb-6">Overview</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
           {[
             { label: 'Total Objectives', value: stats.total },
@@ -52,14 +52,14 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
           ].map((s) => (
             <div key={s.label} className="text-center">
               <p className="text-3xl font-bold text-black">{s.value}</p>
-              <p className="text-xs text-neutral-400 mt-1">{s.label}</p>
+              <p className="text-sm text-neutral-400 mt-1">{s.label}</p>
             </div>
           ))}
         </div>
         <div className="mt-8">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm font-medium text-neutral-600">Overall Progress</span>
-            <span className="text-sm font-bold text-black">{stats.avgProgress}%</span>
+            <span className="text-base font-medium text-neutral-600">Overall Progress</span>
+            <span className="text-base font-bold text-black">{stats.avgProgress}%</span>
           </div>
           <div className="w-full h-3 bg-black/[0.06] rounded-full overflow-hidden">
             <div
@@ -84,17 +84,17 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
             <div className="border-b-2 border-black pb-3">
               <div className="flex items-baseline justify-between gap-4">
                 <div>
-                  <p className="text-xs font-semibold text-neutral-400 uppercase tracking-widest mb-1">
+                  <p className="text-sm font-semibold text-neutral-400 uppercase tracking-widest mb-1">
                     Category {catIndex + 1}
                   </p>
                   <h2 className="text-2xl font-bold text-black">{cat.name}</h2>
                 </div>
-                <span className="text-sm font-medium text-neutral-400 flex-shrink-0">
+                <span className="text-base font-medium text-neutral-400 flex-shrink-0">
                   {catAvg}% complete
                 </span>
               </div>
               {cat.description && (
-                <p className="text-sm text-neutral-500 mt-1">{cat.description}</p>
+                <p className="text-base text-neutral-500 mt-1">{cat.description}</p>
               )}
             </div>
 
@@ -102,9 +102,9 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
             {cat.subCategories.map((sub) => (
               <div key={sub.id} className="space-y-4">
                 <div className="flex items-baseline gap-3">
-                  <h3 className="text-base font-semibold text-black">{sub.name}</h3>
+                  <h3 className="text-lg font-semibold text-black">{sub.name}</h3>
                   {sub.description && (
-                    <span className="text-xs text-neutral-400">{sub.description}</span>
+                    <span className="text-sm text-neutral-400">{sub.description}</span>
                   )}
                 </div>
 
@@ -112,6 +112,9 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                 <div className="space-y-4">
                   {sub.objectives.map((obj) => {
                     const dueDateStatus = getDueDateStatus(obj.deadline)
+                    const imageEvidence = obj.evidence.filter((e) => e.type === 'image')
+                    const linkEvidence = obj.evidence.filter((e) => e.type === 'link')
+
                     return (
                       <div
                         key={obj.id}
@@ -124,7 +127,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                               {obj.title}
                             </h4>
                             {obj.description && (
-                              <p className="text-sm text-neutral-500 mt-1.5 leading-relaxed">
+                              <p className="text-base text-neutral-500 mt-1.5 leading-relaxed">
                                 {obj.description}
                               </p>
                             )}
@@ -135,10 +138,10 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                         {/* Progress */}
                         <div className="mb-4">
                           <div className="flex items-center justify-between mb-1.5">
-                            <span className="text-xs text-neutral-400">Progress</span>
-                            <span className="text-sm font-bold text-black">{obj.progress}%</span>
+                            <span className="text-sm text-neutral-400">Progress</span>
+                            <span className="text-base font-bold text-black">{obj.progress}%</span>
                           </div>
-                          <div className="w-full h-2 bg-black/[0.06] rounded-full overflow-hidden">
+                          <div className="w-full h-2.5 bg-black/[0.06] rounded-full overflow-hidden">
                             <div
                               className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-full"
                               style={{ width: `${obj.progress}%` }}
@@ -149,7 +152,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                         {/* Deadline */}
                         <div className="flex items-center gap-2 mb-4">
                           <Calendar size={14} className="text-neutral-400" />
-                          <span className={`text-sm ${
+                          <span className={`text-base ${
                             dueDateStatus === 'overdue'
                               ? 'text-black font-semibold'
                               : dueDateStatus === 'soon'
@@ -161,43 +164,54 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                           </span>
                         </div>
 
-                        {/* Evidence */}
-                        {obj.evidence.length > 0 && (
-                          <div className="border-t border-black/[0.04] pt-4">
-                            <p className="text-xs font-semibold text-neutral-400 uppercase tracking-widest mb-3">
-                              Evidence ({obj.evidence.length})
+                        {/* Image evidence — shown as full inline images */}
+                        {imageEvidence.length > 0 && (
+                          <div className="border-t border-black/[0.04] pt-4 mb-4">
+                            <div className="space-y-3">
+                              {imageEvidence.map((ev) => (
+                                <div key={ev.id} className="rounded-xl overflow-hidden border border-black/[0.04]">
+                                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                                  <img
+                                    src={ev.url}
+                                    alt={ev.title}
+                                    className="w-full max-h-[400px] object-contain bg-neutral-50"
+                                    onError={(e) => {
+                                      (e.target as HTMLImageElement).style.display = 'none'
+                                    }}
+                                  />
+                                  <div className="px-4 py-2 bg-white/40">
+                                    <p className="text-sm font-medium text-black">{ev.title}</p>
+                                    <p className="text-sm text-neutral-400">{formatDate(ev.addedAt)}</p>
+                                  </div>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Link evidence */}
+                        {linkEvidence.length > 0 && (
+                          <div className={imageEvidence.length === 0 ? 'border-t border-black/[0.04] pt-4' : ''}>
+                            <p className="text-sm font-semibold text-neutral-400 uppercase tracking-widest mb-3">
+                              Links ({linkEvidence.length})
                             </p>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-2">
-                              {obj.evidence.map((ev) => (
+                            <div className="space-y-2">
+                              {linkEvidence.map((ev) => (
                                 <a
                                   key={ev.id}
                                   href={ev.url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center gap-2.5 p-2.5 rounded-lg bg-white/40 border border-black/[0.04] hover:bg-white/70 hover:shadow-sm transition-all duration-150 group"
+                                  className="flex items-center gap-3 p-3 rounded-lg bg-white/40 border border-black/[0.04] hover:bg-white/70 hover:shadow-sm transition-all duration-150 group"
                                 >
-                                  {ev.type === 'image' ? (
-                                    <div className="w-10 h-10 rounded-md bg-black/[0.03] flex-shrink-0 overflow-hidden">
-                                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                                      <img
-                                        src={ev.url}
-                                        alt={ev.title}
-                                        className="w-full h-full object-cover"
-                                        onError={(e) => {
-                                          (e.target as HTMLImageElement).style.display = 'none'
-                                        }}
-                                      />
-                                    </div>
-                                  ) : (
-                                    <div className="w-10 h-10 rounded-md bg-black/[0.03] flex-shrink-0 flex items-center justify-center">
-                                      <Link2 size={14} className="text-neutral-400" />
-                                    </div>
-                                  )}
-                                  <div className="min-w-0 flex-1">
-                                    <p className="text-xs font-medium text-black truncate">{ev.title}</p>
-                                    <p className="text-[10px] text-neutral-400">{formatDate(ev.addedAt)}</p>
+                                  <div className="w-10 h-10 rounded-lg bg-black/[0.03] flex-shrink-0 flex items-center justify-center">
+                                    <Link2 size={16} className="text-neutral-400" />
                                   </div>
-                                  <ExternalLink size={12} className="text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                                  <div className="min-w-0 flex-1">
+                                    <p className="text-base font-medium text-black truncate">{ev.title}</p>
+                                    <p className="text-sm text-neutral-400 truncate">{ev.url}</p>
+                                  </div>
+                                  <ExternalLink size={14} className="text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
                                 </a>
                               ))}
                             </div>
@@ -215,7 +229,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
 
       {/* Footer */}
       <section className="text-center py-12 border-t border-black/[0.06]">
-        <p className="text-xs text-neutral-400">
+        <p className="text-sm text-neutral-400">
           {state.settings.name} &middot; {state.activeYear} Individual Development Plan
         </p>
       </section>
@@ -231,7 +245,7 @@ function StatusPill({ status }: { status: string }) {
   }[status] || 'bg-white/40 border border-black/[0.08] text-neutral-500'
 
   return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold flex-shrink-0 ${styles}`}>
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold flex-shrink-0 ${styles}`}>
       {status}
     </span>
   )

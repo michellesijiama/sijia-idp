@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Objective, STATUSES } from '@/lib/types'
 import { formatDateTime } from '@/lib/utils'
 import { Modal } from '@/components/ui/Modal'
@@ -26,6 +26,7 @@ export function ObjectiveModal({
   onClose,
 }: ObjectiveModalProps) {
   const {
+    state,
     updateObjective,
     addEvidence,
     deleteEvidence,
@@ -34,6 +35,19 @@ export function ObjectiveModal({
   const [form, setForm] = useState<Partial<Objective>>({})
   const [isDirty, setIsDirty] = useState(false)
 
+  // Get the live objective from global state so evidence updates are reflected
+  const liveObjective = useMemo(() => {
+    if (!objective) return null
+    for (const cat of state.categories) {
+      if (cat.id !== categoryId) continue
+      for (const sub of cat.subCategories) {
+        if (sub.id !== subCategoryId) continue
+        return sub.objectives.find((o) => o.id === objective.id) ?? null
+      }
+    }
+    return null
+  }, [state.categories, categoryId, subCategoryId, objective])
+
   useEffect(() => {
     if (objective) {
       setForm({ ...objective })
@@ -41,9 +55,10 @@ export function ObjectiveModal({
     }
   }, [objective])
 
-  if (!objective) return null
+  if (!objective || !liveObjective) return null
 
-  const currentObj = { ...objective, ...form } as Objective
+  // Merge form edits (title, description, etc.) with live evidence from global state
+  const currentObj = { ...liveObjective, ...form, evidence: liveObjective.evidence } as Objective
 
   const set = <K extends keyof Objective>(key: K, value: Objective[K]) => {
     setForm((prev) => ({ ...prev, [key]: value }))
@@ -52,7 +67,9 @@ export function ObjectiveModal({
 
   const handleSave = () => {
     if (!objective) return
-    updateObjective(categoryId, subCategoryId, objective.id, form)
+    // Don't include evidence in form updates — it's managed directly via addEvidence/deleteEvidence
+    const { evidence, ...formWithoutEvidence } = form
+    updateObjective(categoryId, subCategoryId, objective.id, formWithoutEvidence)
     setIsDirty(false)
     onClose()
   }
@@ -86,7 +103,7 @@ export function ObjectiveModal({
                 <button
                   key={s}
                   onClick={() => set('status', s)}
-                  className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all duration-150 ${
+                  className={`px-2.5 py-1 text-sm font-medium rounded-md transition-all duration-150 ${
                     currentObj.status === s
                       ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
                       : 'text-neutral-500 hover:bg-white/60'
@@ -98,9 +115,9 @@ export function ObjectiveModal({
             </div>
 
             {/* Last updated */}
-            <div className="flex items-center gap-1 text-[10px] text-neutral-400 ml-auto">
-              <Clock size={10} />
-              Updated {formatDateTime(objective.updatedAt)}
+            <div className="flex items-center gap-1 text-sm text-neutral-400 ml-auto">
+              <Clock size={12} />
+              Updated {formatDateTime(liveObjective.updatedAt)}
             </div>
           </div>
         </div>
@@ -148,10 +165,10 @@ export function ObjectiveModal({
               <EvidenceSection
                 evidence={currentObj.evidence}
                 onAdd={(type, url, title) =>
-                  addEvidence(categoryId, subCategoryId, objective.id, type, url, title)
+                  addEvidence(categoryId, subCategoryId, liveObjective.id, type, url, title)
                 }
                 onDelete={(evidenceId) =>
-                  deleteEvidence(categoryId, subCategoryId, objective.id, evidenceId)
+                  deleteEvidence(categoryId, subCategoryId, liveObjective.id, evidenceId)
                 }
               />
             </div>
