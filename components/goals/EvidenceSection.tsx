@@ -180,7 +180,7 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
                   onClick={() => {
                     if (confirm('Delete this evidence?')) onDelete(ev.id)
                   }}
-                  className="opacity-0 group-hover:opacity-100 transition-opacity w-7 h-7 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.05] flex-shrink-0"
+                  className="opacity-0 group-hover:opacity-100 transition-opacity w-7 h-7 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] flex-shrink-0"
                   aria-label="Delete evidence"
                 >
                   <Trash2 size={12} />

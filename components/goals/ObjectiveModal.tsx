@@ -98,12 +98,12 @@ export function ObjectiveModal({
           />
           <div className="flex items-center gap-2 flex-wrap">
             {/* Status selector */}
-            <div className="flex items-center gap-1 bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-none p-0.5">
+            <div className="flex items-center gap-1 bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-full p-0.5">
               {STATUSES.map((s) => (
                 <button
                   key={s}
                   onClick={() => set('status', s)}
-                  className={`px-2.5 py-1 text-sm font-medium rounded-none transition-all duration-150 ${
+                  className={`px-2.5 py-1 text-sm font-medium rounded-full transition-all duration-150 ${
                     currentObj.status === s
                       ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
                       : 'text-neutral-500 hover:bg-white/60'

@@ -61,7 +61,7 @@ export function MobileNav({ open, onClose, activeSection, onNavigate }: MobileNa
           </div>
           <button
             onClick={onClose}
-            className="w-8 h-8 flex items-center justify-center rounded-none text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-colors"
+            className="w-8 h-8 flex items-center justify-center rounded-full text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-colors"
             aria-label="Close menu"
           >
             <X size={17} />

@@ -242,7 +242,7 @@ function StatusPill({ status }: { status: string }) {
   }[status] || 'bg-white/40 border border-black/[0.08] text-neutral-500'
 
   return (
-    <span className={`inline-flex items-center px-3 py-1 rounded-none text-sm font-semibold flex-shrink-0 ${styles}`}>
+    <span className={`inline-flex items-center px-3 py-1 rounded-full text-sm font-semibold flex-shrink-0 ${styles}`}>
       {status}
     </span>
   )

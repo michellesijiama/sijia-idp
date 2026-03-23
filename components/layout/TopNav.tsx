@@ -46,11 +46,11 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       )}
 
       {/* Mode toggle */}
-      <div className="flex items-center bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-none p-0.5">
+      <div className="flex items-center bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-full p-0.5">
         <button
           onClick={() => onModeChange('review')}
           className={cn(
-            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-none transition-all duration-150',
+            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-all duration-150',
             mode === 'review'
               ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
               : 'text-neutral-500 hover:bg-white/60'
@@ -62,7 +62,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
         <button
           onClick={() => onModeChange('edit')}
           className={cn(
-            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-none transition-all duration-150',
+            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-full transition-all duration-150',
             mode === 'edit'
               ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
               : 'text-neutral-500 hover:bg-white/60'
@@ -77,7 +77,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       <div className="relative">
         <button
           onClick={() => setYearOpen((o) => !o)}
-          className="flex items-center gap-1.5 h-7 px-3 text-xs font-medium bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-none text-black hover:bg-white/80 transition-all duration-150 shadow-sm"
+          className="flex items-center gap-1.5 h-7 px-3 text-xs font-medium bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-full text-black hover:bg-white/80 transition-all duration-150 shadow-sm"
         >
           {activeYear}
           <ChevronDown size={12} className="text-neutral-400" />
