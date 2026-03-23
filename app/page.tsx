@@ -10,6 +10,7 @@ import { StatsBar } from '@/components/dashboard/StatsBar'
 import { CategorySection } from '@/components/dashboard/CategorySection'
 import { ObjectiveModal } from '@/components/goals/ObjectiveModal'
 import { CategoryFormModal } from '@/components/categories/CategoryFormModal'
+import { ReviewView } from '@/components/review/ReviewView'
 import { Button } from '@/components/ui/Button'
 import { Plus, TrendingUp, FolderOpen, Edit3, Trash2 } from 'lucide-react'
 
@@ -32,11 +33,11 @@ function SettingsView() {
     <div className="max-w-xl space-y-6">
       <div>
         <h2 className="text-lg font-bold text-black">Settings</h2>
-        <p className="text-sm text-neutral-500">Manage your profile and preferences</p>
+        <p className="text-base text-neutral-500">Manage your profile and preferences</p>
       </div>
 
       <div className="bg-white/60 backdrop-blur-xl p-5 space-y-4 rounded-xl border border-white/40 shadow-sm">
-        <h3 className="text-sm font-semibold text-black pb-2 border-b border-black/[0.04]">
+        <h3 className="text-base font-semibold text-black pb-2 border-b border-black/[0.04]">
           Profile Information
         </h3>
 
@@ -47,23 +48,23 @@ function SettingsView() {
           { key: 'manager', label: "Manager's Name", placeholder: 'Your manager' },
         ].map(({ key, label, placeholder }) => (
           <div key={key}>
-            <label className="block text-xs font-semibold mb-1 text-black">{label}</label>
+            <label className="block text-sm font-semibold mb-1 text-black">{label}</label>
             <input
               type="text"
               value={form[key as keyof typeof form] as string}
               onChange={(e) => setForm((f) => ({ ...f, [key]: e.target.value }))}
               placeholder={placeholder}
-              className="w-full h-8 px-3 text-sm bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+              className="w-full h-10 px-3 text-base bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
             />
           </div>
         ))}
 
         <div>
-          <label className="block text-xs font-semibold mb-1 text-black">IDP Year</label>
+          <label className="block text-sm font-semibold mb-1 text-black">IDP Year</label>
           <select
             value={form.year}
             onChange={(e) => setForm((f) => ({ ...f, year: Number(e.target.value) }))}
-            className="w-full h-8 px-3 text-sm bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
+            className="w-full h-10 px-3 text-base bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-lg text-black focus:outline-none focus:ring-2 focus:ring-black"
           >
             {[2025, 2026, 2027].map((y) => (
               <option key={y} value={y}>
@@ -73,20 +74,20 @@ function SettingsView() {
           </select>
         </div>
 
-        <Button variant="primary" size="md" onClick={handleSave}>
+        <Button variant="primary" size="lg" onClick={handleSave}>
           {saved ? 'Saved!' : 'Save Settings'}
         </Button>
       </div>
 
       {/* Danger zone */}
       <div className="bg-white/60 backdrop-blur-xl p-5 space-y-3 rounded-xl border border-black/[0.08] shadow-sm">
-        <h3 className="text-sm font-semibold text-black">Danger Zone</h3>
-        <p className="text-xs text-neutral-500">
+        <h3 className="text-base font-semibold text-black">Danger Zone</h3>
+        <p className="text-sm text-neutral-500">
           Reset all data and start fresh. This cannot be undone.
         </p>
         <Button
           variant="danger"
-          size="sm"
+          size="md"
           onClick={() => {
             if (confirm('Reset all IDP data? This cannot be undone.')) {
               localStorage.removeItem('my-idp-data')
@@ -122,7 +123,7 @@ function CategoriesView({
       <div className="flex items-start justify-between gap-3">
         <div>
           <h2 className="text-lg font-bold text-black">Categories</h2>
-          <p className="text-sm text-neutral-500">Organize your development objectives</p>
+          <p className="text-base text-neutral-500">Organize your development objectives</p>
         </div>
         <Button variant="primary" size="md" onClick={onAddCategory}>
           <Plus size={15} />
@@ -133,8 +134,8 @@ function CategoriesView({
       {state.categories.length === 0 ? (
         <div className="text-center py-16 bg-white/50 backdrop-blur-xl rounded-xl border border-dashed border-black/[0.08]">
           <FolderOpen size={36} className="mx-auto mb-3 text-neutral-300" />
-          <h3 className="text-base font-semibold mb-1 text-black">No categories yet</h3>
-          <p className="text-sm mb-4 text-neutral-400">
+          <h3 className="text-lg font-semibold mb-1 text-black">No categories yet</h3>
+          <p className="text-base mb-4 text-neutral-400">
             Create categories to organize your objectives
           </p>
           <Button variant="primary" size="md" onClick={onAddCategory}>
@@ -151,25 +152,27 @@ function CategoriesView({
             >
               <div className="p-4 flex items-center justify-between border-b border-black/[0.04]">
                 <div>
-                  <h3 className="text-sm font-bold text-black">{cat.name}</h3>
+                  <h3 className="text-base font-bold text-black">{cat.name}</h3>
                   {cat.description && (
-                    <p className="text-xs text-neutral-500 mt-0.5">{cat.description}</p>
+                    <p className="text-sm text-neutral-500 mt-0.5">{cat.description}</p>
                   )}
                 </div>
                 <div className="flex items-center gap-1">
                   <button
                     onClick={() => onEditCategory(cat)}
-                    className="p-1.5 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+                    className="p-2 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+                    aria-label="Edit category"
                   >
-                    <Edit3 size={14} />
+                    <Edit3 size={16} />
                   </button>
                   <button
                     onClick={() => {
                       if (confirm(`Delete "${cat.name}"?`)) deleteCategory(cat.id)
                     }}
-                    className="p-1.5 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+                    className="p-2 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.05] transition-all duration-150"
+                    aria-label="Delete category"
                   >
-                    <Trash2 size={14} />
+                    <Trash2 size={16} />
                   </button>
                 </div>
               </div>
@@ -181,28 +184,30 @@ function CategoriesView({
                     className="flex items-center justify-between p-3 rounded-lg bg-white/40 backdrop-blur-sm border border-black/[0.04]"
                   >
                     <div>
-                      <p className="text-sm font-medium text-black">{sub.name}</p>
+                      <p className="text-base font-medium text-black">{sub.name}</p>
                       {sub.description && (
-                        <p className="text-xs text-neutral-400 mt-0.5">{sub.description}</p>
+                        <p className="text-sm text-neutral-400 mt-0.5">{sub.description}</p>
                       )}
-                      <p className="text-xs text-neutral-400 mt-1">
+                      <p className="text-sm text-neutral-400 mt-1">
                         {sub.objectives.length} objective{sub.objectives.length !== 1 ? 's' : ''}
                       </p>
                     </div>
                     <div className="flex items-center gap-1">
                       <button
                         onClick={() => onEditSubCategory(cat.id, sub)}
-                        className="p-1 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
+                        className="p-2 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
+                        aria-label="Edit sub-category"
                       >
-                        <Edit3 size={12} />
+                        <Edit3 size={14} />
                       </button>
                       <button
                         onClick={() => {
                           if (confirm(`Delete "${sub.name}"?`)) deleteSubCategory(cat.id, sub.id)
                         }}
-                        className="p-1 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
+                        className="p-2 rounded-lg text-neutral-400 hover:text-black hover:bg-black/[0.06] transition-all duration-150"
+                        aria-label="Delete sub-category"
                       >
-                        <Trash2 size={12} />
+                        <Trash2 size={14} />
                       </button>
                     </div>
                   </div>
@@ -210,9 +215,9 @@ function CategoriesView({
 
                 <button
                   onClick={() => onAddSubCategory(cat.id)}
-                  className="w-full flex items-center justify-center gap-1.5 py-2 rounded-lg border border-dashed border-black/[0.08] text-neutral-400 text-xs font-medium hover:border-black/[0.15] hover:text-neutral-600 hover:bg-white/40 transition-all duration-200"
+                  className="w-full flex items-center justify-center gap-1.5 py-2.5 rounded-lg border border-dashed border-black/[0.08] text-neutral-400 text-sm font-medium hover:border-black/[0.15] hover:text-neutral-600 hover:bg-white/40 transition-all duration-200"
                 >
-                  <Plus size={12} />
+                  <Plus size={14} />
                   Add Sub-Category
                 </button>
               </div>
@@ -241,6 +246,7 @@ export default function Page() {
     deleteObjective,
   } = useIDPContext()
 
+  const [mode, setMode] = useState<'edit' | 'review'>('review')
   const [activeSection, setActiveSection] = useState('dashboard')
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
@@ -336,6 +342,25 @@ export default function Page() {
     }
   }
 
+  // ── Review Mode ──────────────────────────────────────────────────────
+  if (mode === 'review') {
+    return (
+      <>
+        <div className="min-h-screen flex flex-col">
+          <TopNav
+            onMenuOpen={() => {}}
+            mode={mode}
+            onModeChange={setMode}
+          />
+          <main className="flex-1">
+            <ReviewView state={state} stats={stats} />
+          </main>
+        </div>
+      </>
+    )
+  }
+
+  // ── Edit Mode ────────────────────────────────────────────────────────
   return (
     <>
       {/* Sidebar (desktop) */}
@@ -351,7 +376,11 @@ export default function Page() {
 
       {/* Main layout */}
       <div className="lg:pl-56 min-h-screen flex flex-col">
-        <TopNav onMenuOpen={() => setMobileMenuOpen(true)} />
+        <TopNav
+          onMenuOpen={() => setMobileMenuOpen(true)}
+          mode={mode}
+          onModeChange={setMode}
+        />
 
         <main className="flex-1 p-4 lg:p-6 pb-20 lg:pb-6 max-w-[1400px] w-full mx-auto">
           {/* Dashboard */}
@@ -362,7 +391,7 @@ export default function Page() {
                   <h1 className="text-xl font-bold text-black">
                     {state.activeYear} Individual Development Plan
                   </h1>
-                  <p className="text-sm mt-0.5 text-neutral-500">
+                  <p className="text-base mt-0.5 text-neutral-500">
                     {state.settings.name} &middot; {state.settings.title}
                     {state.settings.department ? ` \u00b7 ${state.settings.department}` : ''}
                   </p>
@@ -403,8 +432,8 @@ export default function Page() {
               {state.categories.length === 0 && (
                 <div className="text-center py-16 bg-white/50 backdrop-blur-xl rounded-xl border border-dashed border-black/[0.08]">
                   <TrendingUp size={36} className="mx-auto mb-3 text-neutral-300" />
-                  <h3 className="text-base font-semibold mb-1 text-black">No categories yet</h3>
-                  <p className="text-sm mb-4 text-neutral-400">
+                  <h3 className="text-lg font-semibold mb-1 text-black">No categories yet</h3>
+                  <p className="text-base mb-4 text-neutral-400">
                     Start building your {state.activeYear} development plan
                   </p>
                   <Button variant="primary" size="md" onClick={handleAddCategory}>

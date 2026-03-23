@@ -108,7 +108,7 @@ export function MobileNav({ open, onClose, activeSection, onNavigate }: MobileNa
               key={item.id}
               onClick={() => onNavigate(item.id)}
               className={cn(
-                'flex-1 flex flex-col items-center gap-0.5 py-2.5 text-[10px] font-semibold transition-colors duration-100',
+                'flex-1 flex flex-col items-center gap-0.5 py-2.5 text-xs font-semibold transition-colors duration-100',
                 isActive ? 'text-black' : 'text-neutral-400'
               )}
             >

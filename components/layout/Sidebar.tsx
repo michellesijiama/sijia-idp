@@ -57,7 +57,7 @@ export function Sidebar({ activeSection, onNavigate }: SidebarProps) {
 
       {/* Footer */}
       <div className="px-4 py-3 border-t border-black/5">
-        <p className="text-[11px] text-neutral-400">Individual Development Plan</p>
+        <p className="text-sm text-neutral-400">Individual Development Plan</p>
       </div>
     </aside>
   )

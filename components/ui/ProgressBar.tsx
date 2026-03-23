@@ -57,8 +57,8 @@ export function ProgressBar({
     <div className={cn('space-y-1', className)} ref={ref}>
       {showLabel && (
         <div className="flex justify-between items-center">
-          <span className="text-xs text-neutral-500">Progress</span>
-          <span className="text-xs font-semibold text-black">{value}%</span>
+          <span className="text-sm text-neutral-500">Progress</span>
+          <span className="text-sm font-semibold text-black">{value}%</span>
         </div>
       )}
       <div

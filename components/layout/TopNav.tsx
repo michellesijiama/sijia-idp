@@ -3,14 +3,16 @@
 import React, { useState } from 'react'
 import { getInitials } from '@/lib/utils'
 import { useIDPContext } from '@/app/providers'
-import { Printer, ChevronDown, TrendingUp, Cloud } from 'lucide-react'
+import { Printer, ChevronDown, TrendingUp, Cloud, Eye, Pencil } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
 interface TopNavProps {
   onMenuOpen: () => void
+  mode: 'edit' | 'review'
+  onModeChange: (mode: 'edit' | 'review') => void
 }
 
-export function TopNav({ onMenuOpen }: TopNavProps) {
+export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
   const { state, setActiveYear, isSaving } = useIDPContext()
   const { settings, activeYear } = state
   const [yearOpen, setYearOpen] = useState(false)
@@ -20,12 +22,23 @@ export function TopNav({ onMenuOpen }: TopNavProps) {
   return (
     <header className="sticky top-0 z-30 h-12 flex items-center px-4 gap-3 bg-white/60 backdrop-blur-xl border-b border-white/30 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
       {/* Mobile hamburger */}
-      <button className="lg:hidden flex items-center gap-2 mr-1" onClick={onMenuOpen} aria-label="Open menu">
-        <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-black to-neutral-700 shadow-md">
-          <TrendingUp size={12} className="text-white" />
+      {mode === 'edit' && (
+        <button className="lg:hidden flex items-center gap-2 mr-1" onClick={onMenuOpen} aria-label="Open menu">
+          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-black to-neutral-700 shadow-md">
+            <TrendingUp size={12} className="text-white" />
+          </div>
+          <span className="font-semibold text-sm text-black">My IDP</span>
+        </button>
+      )}
+
+      {mode === 'review' && (
+        <div className="flex items-center gap-2">
+          <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-black to-neutral-700 shadow-md">
+            <TrendingUp size={12} className="text-white" />
+          </div>
+          <span className="font-semibold text-sm text-black">My IDP</span>
         </div>
-        <span className="font-semibold text-sm text-black">My IDP</span>
-      </button>
+      )}
 
       <div className="flex-1" />
 
@@ -36,6 +49,34 @@ export function TopNav({ onMenuOpen }: TopNavProps) {
           <span className="text-xs text-neutral-400">Saving...</span>
         </div>
       )}
+
+      {/* Mode toggle */}
+      <div className="flex items-center bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-lg p-0.5">
+        <button
+          onClick={() => onModeChange('review')}
+          className={cn(
+            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md transition-all duration-150',
+            mode === 'review'
+              ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
+              : 'text-neutral-500 hover:bg-white/60'
+          )}
+        >
+          <Eye size={12} />
+          Review
+        </button>
+        <button
+          onClick={() => onModeChange('edit')}
+          className={cn(
+            'flex items-center gap-1.5 px-3 py-1 text-xs font-medium rounded-md transition-all duration-150',
+            mode === 'edit'
+              ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
+              : 'text-neutral-500 hover:bg-white/60'
+          )}
+        >
+          <Pencil size={12} />
+          Edit
+        </button>
+      </div>
 
       {/* Year selector */}
       <div className="relative">
@@ -76,17 +117,19 @@ export function TopNav({ onMenuOpen }: TopNavProps) {
       </Button>
 
       {/* User avatar */}
-      <div className="hidden md:flex items-center gap-2">
-        <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-neutral-100 to-neutral-200 shadow-sm border border-white/50">
-          <span className="text-[11px] font-semibold text-black">
-            {getInitials(settings.name || 'S')}
-          </span>
+      {mode === 'edit' && (
+        <div className="hidden md:flex items-center gap-2">
+          <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-neutral-100 to-neutral-200 shadow-sm border border-white/50">
+            <span className="text-[11px] font-semibold text-black">
+              {getInitials(settings.name || 'S')}
+            </span>
+          </div>
+          <div>
+            <p className="text-xs font-semibold leading-tight text-black">{settings.name}</p>
+            <p className="text-xs leading-tight text-neutral-400">{settings.title}</p>
+          </div>
         </div>
-        <div>
-          <p className="text-xs font-semibold leading-tight text-black">{settings.name}</p>
-          <p className="text-[10px] leading-tight text-neutral-400">{settings.title}</p>
-        </div>
-      </div>
+      )}
     </header>
   )
 }

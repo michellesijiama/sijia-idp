@@ -124,14 +124,14 @@ export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionPr
             value={linkUrl}
             onChange={(e) => setLinkUrl(e.target.value)}
             placeholder="Paste URL..."
-            className="w-full h-8 px-3 text-sm border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
+            className="w-full h-10 px-3 text-base border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
           />
           <input
             type="text"
             value={linkTitle}
             onChange={(e) => setLinkTitle(e.target.value)}
             placeholder="Title for this link..."
-            className="w-full h-8 px-3 text-sm border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
+            className="w-full h-10 px-3 text-base border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 text-black"
             onKeyDown={(e) => {
               if (e.key === 'Enter') {
                 e.preventDefault()

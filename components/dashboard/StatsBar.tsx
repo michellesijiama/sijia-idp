@@ -29,7 +29,7 @@ export function StatsBar({ stats }: StatsBarProps) {
             className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-xl p-4 animate-slide-up shadow-sm hover:bg-white/75 hover:shadow-md transition-all duration-200"
           >
             <p className="text-2xl font-bold text-black leading-none">{card.value}</p>
-            <p className="text-xs text-neutral-500 mt-1">{card.label}</p>
+            <p className="text-sm text-neutral-500 mt-1">{card.label}</p>
           </div>
         ))}
       </div>
@@ -49,11 +49,11 @@ export function StatsBar({ stats }: StatsBarProps) {
           />
         </div>
         <div className="flex items-center gap-4 mt-2">
-          <span className="text-xs text-neutral-400">
+          <span className="text-sm text-neutral-400">
             {stats.completed} of {stats.total} objectives completed
           </span>
           {stats.total > 0 && (
-            <span className="text-xs text-neutral-400">
+            <span className="text-sm text-neutral-400">
               {Math.round((stats.completed / stats.total) * 100)}% completion rate
             </span>
           )}

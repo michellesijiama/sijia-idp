@@ -27,7 +27,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
 
       {/* Title */}
       <h3
-        className="text-sm font-semibold text-black leading-snug mb-2 cursor-pointer hover:underline"
+        className="text-base font-semibold text-black leading-snug mb-2 cursor-pointer hover:underline"
         onClick={onEdit}
       >
         {objective.title}
@@ -35,7 +35,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
 
       {/* Description preview */}
       {objective.description && (
-        <p className="text-xs text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
+        <p className="text-sm text-neutral-500 mb-3 line-clamp-2 leading-relaxed">
           {objective.description}
         </p>
       )}
@@ -47,9 +47,9 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
 
       {/* Due date */}
       <div className="flex items-center gap-1.5 mb-3">
-        <Calendar size={12} className="text-neutral-400 flex-shrink-0" />
+        <Calendar size={14} className="text-neutral-400 flex-shrink-0" />
         <span
-          className={`text-xs ${
+          className={`text-sm ${
             dueDateStatus === 'overdue'
               ? 'text-black font-semibold'
               : dueDateStatus === 'soon'
@@ -64,7 +64,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
 
       {/* Info line */}
       {totalEvidence > 0 && (
-        <p className="text-xs text-neutral-400 mb-3">
+        <p className="text-sm text-neutral-400 mb-3">
           {totalEvidence} evidence
         </p>
       )}
@@ -72,11 +72,11 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
       {/* Actions */}
       <div className="flex items-center gap-1.5 pt-2 border-t border-black/[0.04]">
         <Button variant="primary" size="sm" onClick={onEdit} className="flex-1">
-          <Edit3 size={12} />
+          <Edit3 size={14} />
           Edit
         </Button>
-        <Button variant="ghost" size="icon" onClick={onDelete} title="Delete">
-          <Trash2 size={13} />
+        <Button variant="ghost" size="icon" onClick={onDelete} title="Delete" aria-label="Delete objective">
+          <Trash2 size={14} />
         </Button>
       </div>
     </div>

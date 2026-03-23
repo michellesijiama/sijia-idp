@@ -56,7 +56,7 @@ export function ProgressSlider({ value, onChange, disabled }: ProgressSliderProp
             onClick={() => !disabled && onChange(preset)}
             disabled={disabled}
             className={cn(
-              'text-[11px] font-medium px-2 py-1 rounded-md transition-all duration-150',
+              'text-sm font-medium px-2.5 py-1 rounded-md transition-all duration-150',
               value === preset
                 ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
                 : 'text-neutral-500 bg-white/50 backdrop-blur-sm border border-black/[0.04] hover:bg-white/80',
