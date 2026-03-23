@@ -39,7 +39,7 @@ export function StatsBar({ stats }: StatsBarProps) {
           {stats.completed} of {stats.total} objectives completed
         </span>
         <span className="inline-flex items-center px-3 py-1 rounded-full text-base font-bold bg-black text-white">
-          {stats.avgProgress}% Overall
+          {stats.completed} completed
         </span>
       </div>
     </div>

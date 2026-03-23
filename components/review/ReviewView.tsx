@@ -61,7 +61,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                   <h2 className="text-2xl font-bold text-black">{cat.name}</h2>
                 </div>
                 <span className="text-base font-medium text-neutral-400 flex-shrink-0">
-                  {catAvg}% complete
+                  {catObjectives} objective{catObjectives !== 1 ? 's' : ''}
                 </span>
               </div>
               {cat.description && (
@@ -102,7 +102,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                               </p>
                             )}
                           </div>
-                          <StatusPill status={obj.status} progress={obj.progress} />
+                          <StatusPill status={obj.status} />
                         </div>
 
                         {/* Deadline */}
@@ -182,7 +182,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
   )
 }
 
-function StatusPill({ status, progress }: { status: string; progress: number }) {
+function StatusPill({ status }: { status: string }) {
   const styles = {
     'Completed': 'bg-black text-white',
     'In Progress': 'bg-white/60 border border-black/20 text-black',
@@ -191,7 +191,7 @@ function StatusPill({ status, progress }: { status: string; progress: number }) 
 
   return (
     <span className={`inline-flex items-center px-3 py-1 rounded-full text-base font-semibold flex-shrink-0 ${styles}`}>
-      {status} · {progress}%
+      {status}
     </span>
   )
 }

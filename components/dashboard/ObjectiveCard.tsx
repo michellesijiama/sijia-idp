@@ -20,7 +20,7 @@ export function ObjectiveCard({ objective, onEdit, onDelete }: ObjectiveCardProp
       {/* Status + Progress */}
       <div className="flex items-center justify-between gap-2 mb-3">
         <span className="inline-flex items-center gap-1.5 text-base font-semibold bg-white/40 backdrop-blur-sm px-2.5 py-0.5 rounded-full border border-black/[0.04] text-black">
-          {objective.status} · {objective.progress}%
+          {objective.status}
         </span>
       </div>
 
