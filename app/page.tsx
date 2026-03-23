@@ -70,7 +70,7 @@ function SettingsView() {
           <button
             onClick={() => avatarInputRef.current?.click()}
             disabled={uploadingAvatar}
-            className="w-16 h-16 flex-shrink-0 overflow-hidden border border-black/[0.06] bg-white/50 flex items-center justify-center hover:bg-white/80 transition-all"
+            className="w-16 h-16 rounded-full flex-shrink-0 overflow-hidden border border-black/[0.06] bg-white/50 flex items-center justify-center hover:bg-white/80 transition-all"
           >
             {form.avatar ? (
               // eslint-disable-next-line @next/next/no-img-element

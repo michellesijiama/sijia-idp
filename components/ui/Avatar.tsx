@@ -22,14 +22,14 @@ export function Avatar({ avatar, name, size = 'sm' }: AvatarProps) {
       <img
         src={avatar}
         alt={name}
-        className={`${sizes[size]} object-cover flex-shrink-0 border border-black/[0.06]`}
+        className={`${sizes[size]} rounded-full object-cover flex-shrink-0 border border-black/[0.06]`}
       />
     )
   }
 
   return (
     <div
-      className={`${sizes[size]} flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-neutral-100 to-neutral-200 border border-black/[0.06]`}
+      className={`${sizes[size]} rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-neutral-100 to-neutral-200 border border-black/[0.06]`}
     >
       <span className="font-semibold text-black">
         {getInitials(name || 'U')}
