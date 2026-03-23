@@ -102,6 +102,7 @@ function migrateFromOldFormat(old: {
     department: string
     manager: string
     year: number
+    avatar?: string
   }
   activeYear?: number
 }): IDPState {
@@ -161,6 +162,7 @@ function migrateFromOldFormat(old: {
           department: old.settings.department,
           manager: old.settings.manager,
           year: old.settings.year,
+          avatar: old.settings.avatar || '',
         }
       : SAMPLE_STATE.settings,
     activeYear: old.activeYear || SAMPLE_STATE.activeYear,

@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react'
 import { Evidence } from '@/lib/types'
-import { formatDate } from '@/lib/utils'
+import { formatDate, resizeImage } from '@/lib/utils'
 import { Trash2, ExternalLink, Image, Link2, Upload, Plus } from 'lucide-react'
 import { Button } from '@/components/ui/Button'
 
@@ -10,33 +10,6 @@ interface EvidenceSectionProps {
   evidence: Evidence[]
   onAdd: (type: 'image' | 'link', url: string, title: string) => void
   onDelete: (id: string) => void
-}
-
-function resizeImage(file: File, maxWidth: number): Promise<string> {
-  return new Promise((resolve, reject) => {
-    const reader = new FileReader()
-    reader.onload = () => {
-      const img = document.createElement('img')
-      img.onload = () => {
-        const canvas = document.createElement('canvas')
-        let { width, height } = img
-        if (width > maxWidth) {
-          height = Math.round((height * maxWidth) / width)
-          width = maxWidth
-        }
-        canvas.width = width
-        canvas.height = height
-        const ctx = canvas.getContext('2d')
-        if (!ctx) { reject(new Error('No canvas context')); return }
-        ctx.drawImage(img, 0, 0, width, height)
-        resolve(canvas.toDataURL('image/jpeg', 0.8))
-      }
-      img.onerror = reject
-      img.src = reader.result as string
-    }
-    reader.onerror = reject
-    reader.readAsDataURL(file)
-  })
 }
 
 export function EvidenceSection({ evidence, onAdd, onDelete }: EvidenceSectionProps) {

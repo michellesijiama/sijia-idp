@@ -1,9 +1,9 @@
 'use client'
 
 import React, { useState } from 'react'
-import { getInitials } from '@/lib/utils'
 import { useIDPContext } from '@/app/providers'
-import { ChevronDown, TrendingUp, Cloud, Eye, Pencil } from 'lucide-react'
+import { Avatar } from '@/components/ui/Avatar'
+import { ChevronDown, Cloud, Eye, Pencil } from 'lucide-react'
 
 interface TopNavProps {
   onMenuOpen: () => void
@@ -23,18 +23,14 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       {/* Mobile hamburger */}
       {mode === 'edit' && (
         <button className="lg:hidden flex items-center gap-2 mr-1" onClick={onMenuOpen} aria-label="Open menu">
-          <div className="w-7 h-7 flex items-center justify-center rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-md">
-            <TrendingUp size={12} className="text-white" />
-          </div>
+          <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
           <span className="font-semibold text-sm text-black">My IDP</span>
         </button>
       )}
 
       {mode === 'review' && (
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 flex items-center justify-center rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-md">
-            <TrendingUp size={12} className="text-white" />
-          </div>
+          <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
           <span className="font-semibold text-sm text-black">My IDP</span>
         </div>
       )}
@@ -113,11 +109,7 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
       {/* User avatar */}
       {mode === 'edit' && (
         <div className="hidden md:flex items-center gap-2">
-          <div className="w-7 h-7 rounded-none flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-neutral-100 to-neutral-200 shadow-sm border border-white/50">
-            <span className="text-[11px] font-semibold text-black">
-              {getInitials(settings.name || 'S')}
-            </span>
-          </div>
+          <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
           <div>
             <p className="text-xs font-semibold leading-tight text-black">{settings.name}</p>
             <p className="text-xs leading-tight text-neutral-400">{settings.title}</p>

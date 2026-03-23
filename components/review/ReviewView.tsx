@@ -3,7 +3,8 @@
 import React from 'react'
 import { IDPState } from '@/lib/types'
 import { formatDate, getDueDateStatus } from '@/lib/utils'
-import { Calendar, ExternalLink, Link2, TrendingUp } from 'lucide-react'
+import { Avatar } from '@/components/ui/Avatar'
+import { Calendar, ExternalLink, Link2 } from 'lucide-react'
 
 interface ReviewViewProps {
   state: IDPState
@@ -21,8 +22,8 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
     <div className="max-w-4xl mx-auto py-8 px-4 lg:px-0 space-y-12 animate-fade-in">
       {/* Title Slide */}
       <section className="text-center py-16">
-        <div className="inline-flex items-center justify-center w-14 h-14 rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-lg mb-6">
-          <TrendingUp size={24} className="text-white" />
+        <div className="inline-flex mb-6">
+          <Avatar avatar={state.settings.avatar} name={state.settings.name} size="lg" />
         </div>
         <h1 className="text-4xl font-bold text-black tracking-tight mb-2">
           Individual Development Plan

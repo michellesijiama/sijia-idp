@@ -43,6 +43,7 @@ export interface UserSettings {
   department: string
   manager: string
   year: number
+  avatar: string
 }
 
 export interface IDPState {

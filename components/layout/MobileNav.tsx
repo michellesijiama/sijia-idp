@@ -2,7 +2,9 @@
 
 import React, { useEffect, useRef } from 'react'
 import { cn } from '@/lib/utils'
-import { LayoutDashboard, FolderOpen, Settings, X, TrendingUp } from 'lucide-react'
+import { useIDPContext } from '@/app/providers'
+import { Avatar } from '@/components/ui/Avatar'
+import { LayoutDashboard, FolderOpen, Settings, X } from 'lucide-react'
 
 interface MobileNavProps {
   open: boolean
@@ -18,6 +20,8 @@ const navItems = [
 ]
 
 export function MobileNav({ open, onClose, activeSection, onNavigate }: MobileNavProps) {
+  const { state } = useIDPContext()
+  const { settings } = state
   const drawerRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -52,9 +56,7 @@ export function MobileNav({ open, onClose, activeSection, onNavigate }: MobileNa
       >
         <div className="flex items-center justify-between px-4 h-12 border-b border-black/5">
           <div className="flex items-center gap-2">
-            <div className="w-7 h-7 flex items-center justify-center rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-md">
-              <TrendingUp size={13} className="text-white" />
-            </div>
+            <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
             <span className="font-semibold text-sm text-black">My IDP</span>
           </div>
           <button

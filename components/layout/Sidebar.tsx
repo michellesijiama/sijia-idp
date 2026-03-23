@@ -2,7 +2,9 @@
 
 import React from 'react'
 import { cn } from '@/lib/utils'
-import { LayoutDashboard, FolderOpen, Settings, TrendingUp } from 'lucide-react'
+import { useIDPContext } from '@/app/providers'
+import { Avatar } from '@/components/ui/Avatar'
+import { LayoutDashboard, FolderOpen, Settings } from 'lucide-react'
 
 interface SidebarProps {
   activeSection: string
@@ -16,13 +18,14 @@ const navItems = [
 ]
 
 export function Sidebar({ activeSection, onNavigate }: SidebarProps) {
+  const { state } = useIDPContext()
+  const { settings } = state
+
   return (
     <aside className="hidden lg:flex flex-col w-56 shrink-0 fixed top-0 left-0 bottom-0 z-40 bg-white/70 backdrop-blur-xl border-r border-white/30 shadow-[1px_0_12px_rgba(0,0,0,0.03)]">
       {/* Logo area */}
       <div className="flex items-center gap-2.5 px-4 h-12 border-b border-black/5">
-        <div className="w-7 h-7 flex items-center justify-center rounded-none bg-gradient-to-br from-black to-neutral-700 shadow-md">
-          <TrendingUp size={13} className="text-white" />
-        </div>
+        <Avatar avatar={settings.avatar} name={settings.name} size="sm" />
         <span className="font-semibold text-black text-sm tracking-tight">My IDP</span>
       </div>
 

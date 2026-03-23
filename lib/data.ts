@@ -6,6 +6,7 @@ export const DEFAULT_SETTINGS: UserSettings = {
   department: 'Engineering',
   manager: 'Sarah Chen',
   year: 2026,
+  avatar: '',
 }
 
 export const SAMPLE_CATEGORIES: Category[] = [

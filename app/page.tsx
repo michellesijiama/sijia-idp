@@ -1,7 +1,8 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import { Category, SubCategory, Objective } from '@/lib/types'
+import { resizeImage, getInitials } from '@/lib/utils'
 import { useIDPContext } from './providers'
 import { Sidebar } from '@/components/layout/Sidebar'
 import { TopNav } from '@/components/layout/TopNav'
@@ -22,11 +23,27 @@ function SettingsView() {
   const { settings } = state
   const [form, setForm] = useState(settings)
   const [saved, setSaved] = useState(false)
+  const [uploadingAvatar, setUploadingAvatar] = useState(false)
+  const avatarInputRef = useRef<HTMLInputElement>(null)
 
   const handleSave = () => {
     updateSettings(form)
     setSaved(true)
     setTimeout(() => setSaved(false), 2000)
+  }
+
+  const handleAvatarUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+    setUploadingAvatar(true)
+    try {
+      const dataUrl = await resizeImage(file, 400)
+      setForm((f) => ({ ...f, avatar: dataUrl }))
+    } catch {
+      alert('Failed to process image.')
+    }
+    setUploadingAvatar(false)
+    if (avatarInputRef.current) avatarInputRef.current.value = ''
   }
 
   return (
@@ -40,6 +57,43 @@ function SettingsView() {
         <h3 className="text-base font-semibold text-black pb-2 border-b border-black/[0.04]">
           Profile Information
         </h3>
+
+        {/* Avatar upload */}
+        <div className="flex items-center gap-4">
+          <input
+            ref={avatarInputRef}
+            type="file"
+            accept="image/*"
+            onChange={handleAvatarUpload}
+            className="hidden"
+          />
+          <button
+            onClick={() => avatarInputRef.current?.click()}
+            disabled={uploadingAvatar}
+            className="w-16 h-16 flex-shrink-0 overflow-hidden border border-black/[0.06] bg-white/50 flex items-center justify-center hover:bg-white/80 transition-all"
+          >
+            {form.avatar ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={form.avatar} alt="Avatar" className="w-full h-full object-cover" />
+            ) : (
+              <span className="text-lg font-bold text-neutral-400">
+                {getInitials(form.name || 'U')}
+              </span>
+            )}
+          </button>
+          <div>
+            <p className="text-sm font-semibold text-black">Profile Photo</p>
+            <p className="text-sm text-neutral-400">Click to upload</p>
+            {form.avatar && (
+              <button
+                onClick={() => setForm((f) => ({ ...f, avatar: '' }))}
+                className="text-sm text-neutral-500 hover:text-black mt-0.5"
+              >
+                Remove
+              </button>
+            )}
+          </div>
+        </div>
 
         {[
           { key: 'name', label: 'Full Name', placeholder: 'Your full name' },
