@@ -93,10 +93,10 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                         <div className={`flex ${imageEvidence.length > 0 ? 'flex-col md:flex-row' : ''}`}>
                           {/* Image thumbnails — left column */}
                           {imageEvidence.length > 0 && (
-                            <div className="md:w-48 lg:w-56 flex-shrink-0 bg-neutral-50 border-b md:border-b-0 md:border-r border-black/[0.04]">
-                              <div className={`${imageEvidence.length === 1 ? '' : 'grid grid-cols-2 md:grid-cols-1'}`}>
+                            <div className="md:w-48 lg:w-56 flex-shrink-0 bg-neutral-50 border-b md:border-b-0 md:border-r border-black/[0.04] p-3">
+                              <div className={`${imageEvidence.length === 1 ? '' : 'grid grid-cols-2 md:grid-cols-1 gap-2'}`}>
                                 {imageEvidence.map((ev) => (
-                                  <div key={ev.id} className="overflow-hidden">
+                                  <div key={ev.id} className="overflow-hidden rounded-none">
                                     {/* eslint-disable-next-line @next/next/no-img-element */}
                                     <img
                                       src={ev.url}
