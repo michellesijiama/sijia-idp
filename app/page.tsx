@@ -440,16 +440,10 @@ export default function Page() {
           {/* Dashboard */}
           {activeSection === 'dashboard' && (
             <div className="space-y-6">
-              <div className="flex items-start justify-between gap-3">
-                <div>
-                  <h1 className="text-xl font-bold text-black">
-                    {state.activeYear} Individual Development Plan
-                  </h1>
-                  <p className="text-base mt-0.5 text-neutral-500">
-                    {state.settings.name} &middot; {state.settings.title}
-                    {state.settings.department ? ` \u00b7 ${state.settings.department}` : ''}
-                  </p>
-                </div>
+              <div className="flex items-end justify-between gap-3">
+                <h1 className="text-xl font-bold text-black">
+                  {state.activeYear} Individual Development Plan
+                </h1>
                 <Button variant="primary" size="md" onClick={handleAddCategory} className="flex-shrink-0">
                   <Plus size={15} />
                   Add Category
