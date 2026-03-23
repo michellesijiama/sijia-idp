@@ -88,80 +88,76 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                     return (
                       <div
                         key={obj.id}
-                        className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-6 shadow-sm"
+                        className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none shadow-sm"
                       >
-                        {/* Header row */}
-                        <div className="flex items-start justify-between gap-4 mb-4">
-                          <div className="flex-1">
-                            <h4 className="text-lg font-semibold text-black leading-snug">
-                              {obj.title}
-                            </h4>
+                        <div className={`flex ${imageEvidence.length > 0 ? 'flex-col md:flex-row' : ''}`}>
+                          {/* Image thumbnails — left column */}
+                          {imageEvidence.length > 0 && (
+                            <div className="md:w-48 lg:w-56 flex-shrink-0 bg-neutral-50 border-b md:border-b-0 md:border-r border-black/[0.04]">
+                              <div className={`${imageEvidence.length === 1 ? '' : 'grid grid-cols-2 md:grid-cols-1'}`}>
+                                {imageEvidence.map((ev) => (
+                                  <div key={ev.id} className="overflow-hidden">
+                                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                                    <img
+                                      src={ev.url}
+                                      alt={ev.title}
+                                      className="w-full h-32 md:h-40 object-cover"
+                                      onError={(e) => {
+                                        (e.target as HTMLImageElement).style.display = 'none'
+                                      }}
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            </div>
+                          )}
+
+                          {/* Text content — right column */}
+                          <div className="flex-1 p-6">
+                            {/* Header */}
+                            <div className="flex items-start justify-between gap-4 mb-3">
+                              <h4 className="text-lg font-semibold text-black leading-snug">
+                                {obj.title}
+                              </h4>
+                              <StatusPill status={obj.status} />
+                            </div>
+
                             {obj.description && (
-                              <p className="text-base text-neutral-500 mt-1.5 leading-relaxed">
+                              <p className="text-base text-neutral-500 mb-3 leading-relaxed">
                                 {obj.description}
                               </p>
                             )}
-                          </div>
-                          <StatusPill status={obj.status} />
-                        </div>
 
-                        {/* Deadline */}
-                        <div className="flex items-center gap-2 mb-4">
-                          <Calendar size={14} className="text-neutral-400" />
-                          <span className="text-base text-neutral-500">
-                            Due {formatDate(obj.deadline)}
-                          </span>
-                        </div>
+                            {/* Deadline */}
+                            <div className="flex items-center gap-2 mb-3">
+                              <Calendar size={14} className="text-neutral-400" />
+                              <span className="text-base text-neutral-500">
+                                Due {formatDate(obj.deadline)}
+                              </span>
+                            </div>
 
-                        {/* Image evidence — shown as full inline images */}
-                        {imageEvidence.length > 0 && (
-                          <div className="border-t border-black/[0.04] pt-4 mb-4">
-                            <div className="space-y-3">
-                              {imageEvidence.map((ev) => (
-                                <div key={ev.id} className="rounded-none overflow-hidden border border-black/[0.04]">
-                                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                                  <img
-                                    src={ev.url}
-                                    alt={ev.title}
-                                    className="w-full max-h-[400px] object-contain bg-neutral-50"
-                                    onError={(e) => {
-                                      (e.target as HTMLImageElement).style.display = 'none'
-                                    }}
-                                  />
+                            {/* Link evidence */}
+                            {linkEvidence.length > 0 && (
+                              <div className="border-t border-black/[0.04] pt-3 mt-3">
+                                <div className="space-y-1.5">
+                                  {linkEvidence.map((ev) => (
+                                    <a
+                                      key={ev.id}
+                                      href={ev.url}
+                                      target="_blank"
+                                      rel="noopener noreferrer"
+                                      className="flex items-center gap-2 text-base text-neutral-500 hover:text-black transition-colors group"
+                                    >
+                                      <Link2 size={14} className="text-neutral-400 flex-shrink-0" />
+                                      <span className="truncate">{ev.title}</span>
+                                      <ExternalLink size={12} className="text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
+                                    </a>
+                                  ))}
                                 </div>
-                              ))}
-                            </div>
+                              </div>
+                            )}
                           </div>
-                        )}
-
-                        {/* Link evidence */}
-                        {linkEvidence.length > 0 && (
-                          <div className={imageEvidence.length === 0 ? 'border-t border-black/[0.04] pt-4' : ''}>
-                            <p className="text-base font-semibold text-neutral-400 uppercase tracking-widest mb-3">
-                              Links ({linkEvidence.length})
-                            </p>
-                            <div className="space-y-2">
-                              {linkEvidence.map((ev) => (
-                                <a
-                                  key={ev.id}
-                                  href={ev.url}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                  className="flex items-center gap-3 p-3 rounded-none bg-white/40 border border-black/[0.04] hover:bg-white/70 hover:shadow-sm transition-all duration-150 group"
-                                >
-                                  <div className="w-10 h-10 rounded-none bg-black/[0.03] flex-shrink-0 flex items-center justify-center">
-                                    <Link2 size={16} className="text-neutral-400" />
-                                  </div>
-                                  <div className="min-w-0 flex-1">
-                                    <p className="text-base font-medium text-black truncate">{ev.title}</p>
-                                    <p className="text-base text-neutral-400 truncate">{ev.url}</p>
-                                  </div>
-                                  <ExternalLink size={14} className="text-neutral-300 opacity-0 group-hover:opacity-100 transition-opacity flex-shrink-0" />
-                                </a>
-                              ))}
-                            </div>
-                          </div>
-                        )}
+                        </div>
                       </div>
                     )
                   })}
