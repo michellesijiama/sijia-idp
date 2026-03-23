@@ -41,29 +41,6 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
         </div>
       </section>
 
-      {/* Overview Stats */}
-      <section className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none p-8 shadow-sm">
-        <h2 className="text-base font-semibold text-neutral-400 uppercase tracking-widest mb-6">Overview</h2>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {[
-            { label: 'Total Objectives', value: stats.total },
-            { label: 'Completed', value: stats.completed },
-            { label: 'In Progress', value: stats.inProgress },
-            { label: 'Not Started', value: stats.notStarted },
-          ].map((s) => (
-            <div key={s.label} className="text-center">
-              <p className="text-3xl font-bold text-black">{s.value}</p>
-              <p className="text-base text-neutral-400 mt-1">{s.label}</p>
-            </div>
-          ))}
-        </div>
-        <div className="mt-6 text-center">
-          <span className="inline-flex items-center px-4 py-1.5 rounded-full text-base font-bold bg-black text-white">
-            {stats.avgProgress}% Overall
-          </span>
-        </div>
-      </section>
-
       {/* Categories */}
       {state.categories.map((cat, catIndex) => {
         const catObjectives = cat.subCategories.reduce((sum, s) => sum + s.objectives.length, 0)
