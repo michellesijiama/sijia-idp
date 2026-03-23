@@ -39,9 +39,9 @@ export function StatsBar({ stats }: StatsBarProps) {
           <span className="text-sm font-semibold text-black">Overall Progress</span>
           <span className="text-sm font-bold text-black">{stats.avgProgress}%</span>
         </div>
-        <div className="w-full h-2 bg-black/[0.06] rounded-none overflow-hidden">
+        <div className="w-full h-2 bg-black/[0.06] rounded-full overflow-hidden">
           <div
-            className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-none"
+            className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-full"
             style={{
               width: `${stats.avgProgress}%`,
               transition: 'width 0.8s cubic-bezier(0.4, 0, 0.2, 1)',

@@ -61,9 +61,9 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
             <span className="text-base font-medium text-neutral-600">Overall Progress</span>
             <span className="text-base font-bold text-black">{stats.avgProgress}%</span>
           </div>
-          <div className="w-full h-3 bg-black/[0.06] rounded-none overflow-hidden">
+          <div className="w-full h-3 bg-black/[0.06] rounded-full overflow-hidden">
             <div
-              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-none transition-all duration-1000"
+              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-full transition-all duration-1000"
               style={{ width: `${stats.avgProgress}%` }}
             />
           </div>
@@ -141,9 +141,9 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
                             <span className="text-sm text-neutral-400">Progress</span>
                             <span className="text-base font-bold text-black">{obj.progress}%</span>
                           </div>
-                          <div className="w-full h-2.5 bg-black/[0.06] rounded-none overflow-hidden">
+                          <div className="w-full h-2.5 bg-black/[0.06] rounded-full overflow-hidden">
                             <div
-                              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-none"
+                              className="h-full bg-gradient-to-r from-neutral-800 via-black to-neutral-700 rounded-full"
                               style={{ width: `${obj.progress}%` }}
                             />
                           </div>

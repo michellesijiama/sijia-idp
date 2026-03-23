@@ -31,7 +31,7 @@ export function StatusBadge({ status }: { status: Status }) {
 
   return (
     <span className="inline-flex items-center gap-1.5 text-sm font-medium text-neutral-600 bg-white/40 backdrop-blur-sm px-2.5 py-0.5 rounded-none border border-black/[0.04]">
-      <span className={cn('w-2.5 h-2.5 rounded-none inline-block flex-shrink-0', dotClass)} aria-hidden="true" />
+      <span className={cn('w-2.5 h-2.5 rounded-full inline-block flex-shrink-0', dotClass)} aria-hidden="true" />
       {status}
     </span>
   )

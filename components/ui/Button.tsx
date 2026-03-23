@@ -20,7 +20,7 @@ export function Button({
   ...props
 }: ButtonProps) {
   const base =
-    'inline-flex items-center justify-center font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-1 disabled:opacity-40 disabled:pointer-events-none select-none rounded-none'
+    'inline-flex items-center justify-center font-semibold transition-all duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-black focus-visible:ring-offset-1 disabled:opacity-40 disabled:pointer-events-none select-none rounded-full'
 
   const variants: Record<string, string> = {
     primary: 'bg-gradient-to-b from-neutral-800 to-black text-white hover:from-neutral-700 hover:to-neutral-900 active:from-neutral-900 active:to-black shadow-md hover:shadow-lg',
@@ -34,7 +34,7 @@ export function Button({
     sm: 'h-8 px-3 text-sm gap-1.5',
     md: 'h-9 px-4 text-base gap-2',
     lg: 'h-10 px-5 text-base gap-2',
-    icon: 'h-8 w-8 !rounded-none',
+    icon: 'h-8 w-8 !rounded-full',
   }
 
   return (
