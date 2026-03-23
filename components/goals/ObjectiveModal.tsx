@@ -1,0 +1,195 @@
+'use client'
+
+import React, { useState, useEffect } from 'react'
+import { Objective, STATUSES, Status } from '@/lib/types'
+import { formatDateTime } from '@/lib/utils'
+import { Modal } from '@/components/ui/Modal'
+import { Button } from '@/components/ui/Button'
+import { ProgressSlider } from './ProgressSlider'
+import { StepList } from './StepList'
+import { EvidenceSection } from './EvidenceSection'
+import { useIDPContext } from '@/app/providers'
+import { Save, Clock } from 'lucide-react'
+
+interface ObjectiveModalProps {
+  open: boolean
+  objective: Objective | null
+  categoryId: string
+  subCategoryId: string
+  onClose: () => void
+}
+
+export function ObjectiveModal({
+  open,
+  objective,
+  categoryId,
+  subCategoryId,
+  onClose,
+}: ObjectiveModalProps) {
+  const {
+    updateObjective,
+    addStep,
+    toggleStep,
+    updateStep,
+    deleteStep,
+    addEvidence,
+    deleteEvidence,
+  } = useIDPContext()
+
+  const [form, setForm] = useState<Partial<Objective>>({})
+  const [isDirty, setIsDirty] = useState(false)
+
+  useEffect(() => {
+    if (objective) {
+      setForm({ ...objective })
+      setIsDirty(false)
+    }
+  }, [objective])
+
+  if (!objective) return null
+
+  const currentObj = { ...objective, ...form } as Objective
+
+  const set = <K extends keyof Objective>(key: K, value: Objective[K]) => {
+    setForm((prev) => ({ ...prev, [key]: value }))
+    setIsDirty(true)
+  }
+
+  const handleSave = () => {
+    if (!objective) return
+    updateObjective(categoryId, subCategoryId, objective.id, form)
+    setIsDirty(false)
+    onClose()
+  }
+
+  const handleClose = () => {
+    if (isDirty) {
+      if (confirm('You have unsaved changes. Close without saving?')) {
+        onClose()
+      }
+    } else {
+      onClose()
+    }
+  }
+
+  return (
+    <Modal open={open} onClose={handleClose} size="xl">
+      <div className="flex flex-col">
+        {/* Custom header */}
+        <div className="px-5 pt-5 pb-4 border-b border-black/[0.05]">
+          <input
+            type="text"
+            value={currentObj.title}
+            onChange={(e) => set('title', e.target.value)}
+            className="w-full text-lg font-bold text-black bg-transparent border-none outline-none focus:ring-0 placeholder:text-neutral-300/60 mb-2"
+            placeholder="Objective title..."
+          />
+          <div className="flex items-center gap-2 flex-wrap">
+            {/* Status selector */}
+            <div className="flex items-center gap-1 bg-black/[0.03] backdrop-blur-sm border border-black/[0.06] rounded-lg p-0.5">
+              {STATUSES.map((s) => (
+                <button
+                  key={s}
+                  onClick={() => set('status', s)}
+                  className={`px-2.5 py-1 text-xs font-medium rounded-md transition-all duration-150 ${
+                    currentObj.status === s
+                      ? 'bg-gradient-to-b from-neutral-800 to-black text-white shadow-sm'
+                      : 'text-neutral-500 hover:bg-white/60'
+                  }`}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+
+            {/* Last updated */}
+            <div className="flex items-center gap-1 text-[10px] text-neutral-400 ml-auto">
+              <Clock size={10} />
+              Updated {formatDateTime(objective.updatedAt)}
+            </div>
+          </div>
+        </div>
+
+        {/* Scrollable body */}
+        <div className="flex-1 overflow-y-auto">
+          <div className="p-5 space-y-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Left col */}
+              <div className="space-y-5">
+                {/* Description */}
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1.5">
+                    Description
+                  </label>
+                  <textarea
+                    value={currentObj.description}
+                    onChange={(e) => set('description', e.target.value)}
+                    placeholder="Describe this objective in detail..."
+                    rows={3}
+                    className="w-full px-3 py-2 text-sm text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent placeholder:text-neutral-400 resize-none"
+                  />
+                </div>
+
+                {/* Deadline */}
+                <div>
+                  <label className="block text-sm font-medium text-neutral-700 mb-1.5">
+                    Deadline
+                  </label>
+                  <input
+                    type="date"
+                    value={currentObj.deadline}
+                    onChange={(e) => set('deadline', e.target.value)}
+                    className="h-9 px-3 text-sm text-black border border-black/[0.06] rounded-lg bg-white/50 backdrop-blur-sm focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent w-full"
+                  />
+                </div>
+
+                {/* Progress slider */}
+                <ProgressSlider
+                  value={currentObj.progress}
+                  onChange={(v) => set('progress', v)}
+                />
+              </div>
+
+              {/* Right col: steps */}
+              <div>
+                <StepList
+                  steps={currentObj.steps}
+                  onAdd={(text) => addStep(categoryId, subCategoryId, objective.id, text)}
+                  onToggle={(stepId) => toggleStep(categoryId, subCategoryId, objective.id, stepId)}
+                  onUpdate={(stepId, updates) =>
+                    updateStep(categoryId, subCategoryId, objective.id, stepId, updates)
+                  }
+                  onDelete={(stepId) => deleteStep(categoryId, subCategoryId, objective.id, stepId)}
+                />
+              </div>
+            </div>
+
+            {/* Evidence section */}
+            <div className="border-t border-black/[0.04] pt-5">
+              <EvidenceSection
+                evidence={currentObj.evidence}
+                onAdd={(type, url, title) =>
+                  addEvidence(categoryId, subCategoryId, objective.id, type, url, title)
+                }
+                onDelete={(evidenceId) =>
+                  deleteEvidence(categoryId, subCategoryId, objective.id, evidenceId)
+                }
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="px-5 py-3.5 border-t border-black/[0.05] flex items-center justify-end gap-2 bg-white/40 backdrop-blur-sm flex-shrink-0">
+          <Button variant="secondary" size="md" onClick={handleClose}>
+            Cancel
+          </Button>
+          <Button variant="primary" size="md" onClick={handleSave} disabled={!isDirty}>
+            <Save size={14} />
+            Save Changes
+          </Button>
+        </div>
+      </div>
+    </Modal>
+  )
+}

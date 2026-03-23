@@ -1,0 +1,96 @@
+'use client'
+
+import React, { useState } from 'react'
+import { getInitials } from '@/lib/utils'
+import { useIDPContext } from '@/app/providers'
+import { Printer, ChevronDown, TrendingUp, Cloud } from 'lucide-react'
+import { Button } from '@/components/ui/Button'
+
+interface TopNavProps {
+  onMenuOpen: () => void
+}
+
+export function TopNav({ onMenuOpen }: TopNavProps) {
+  const { state, setActiveYear, isSaving } = useIDPContext()
+  const { settings, activeYear } = state
+  const [yearOpen, setYearOpen] = useState(false)
+
+  const years = [2025, 2026, 2027]
+
+  return (
+    <header className="sticky top-0 z-30 h-12 flex items-center px-4 gap-3 bg-white/60 backdrop-blur-xl border-b border-white/30 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
+      {/* Mobile hamburger */}
+      <button className="lg:hidden flex items-center gap-2 mr-1" onClick={onMenuOpen} aria-label="Open menu">
+        <div className="w-7 h-7 flex items-center justify-center rounded-lg bg-gradient-to-br from-black to-neutral-700 shadow-md">
+          <TrendingUp size={12} className="text-white" />
+        </div>
+        <span className="font-semibold text-sm text-black">My IDP</span>
+      </button>
+
+      <div className="flex-1" />
+
+      {/* Auto-save indicator */}
+      {isSaving && (
+        <div className="hidden sm:flex items-center gap-1.5">
+          <Cloud size={13} className="animate-pulse text-neutral-400" />
+          <span className="text-xs text-neutral-400">Saving...</span>
+        </div>
+      )}
+
+      {/* Year selector */}
+      <div className="relative">
+        <button
+          onClick={() => setYearOpen((o) => !o)}
+          className="flex items-center gap-1.5 h-7 px-3 text-xs font-medium bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-lg text-black hover:bg-white/80 transition-all duration-150 shadow-sm"
+        >
+          {activeYear}
+          <ChevronDown size={12} className="text-neutral-400" />
+        </button>
+        {yearOpen && (
+          <div className="absolute right-0 top-full mt-1 py-1 w-24 z-50 animate-slide-down bg-white/80 backdrop-blur-xl border border-white/40 rounded-xl shadow-lg">
+            {years.map((y) => (
+              <button
+                key={y}
+                onClick={() => {
+                  setActiveYear(y)
+                  setYearOpen(false)
+                }}
+                className={cn(
+                  'w-full text-left px-3 py-1.5 text-xs transition-all duration-150',
+                  y === activeYear
+                    ? 'text-black font-semibold bg-black/[0.06]'
+                    : 'text-neutral-600 hover:bg-black/[0.03]'
+                )}
+              >
+                {y}
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Export */}
+      <Button variant="outline" size="sm" onClick={() => window.print()} className="print-hide hidden sm:flex">
+        <Printer size={13} />
+        Export
+      </Button>
+
+      {/* User avatar */}
+      <div className="hidden md:flex items-center gap-2">
+        <div className="w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 bg-gradient-to-br from-neutral-100 to-neutral-200 shadow-sm border border-white/50">
+          <span className="text-[11px] font-semibold text-black">
+            {getInitials(settings.name || 'S')}
+          </span>
+        </div>
+        <div>
+          <p className="text-xs font-semibold leading-tight text-black">{settings.name}</p>
+          <p className="text-[10px] leading-tight text-neutral-400">{settings.title}</p>
+        </div>
+      </div>
+    </header>
+  )
+}
+
+function cn(...classes: (string | boolean | undefined)[]) {
+  return classes.filter(Boolean).join(' ')
+}
