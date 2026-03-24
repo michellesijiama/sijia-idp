@@ -76,6 +76,11 @@ export function loadState(): IDPState {
       return migrated
     }
 
+    // Ensure macroGoal exists for data saved before this field was added
+    if (!parsed.macroGoal) {
+      parsed.macroGoal = { title: '', description: '' }
+    }
+
     return parsed as IDPState
   } catch {
     return SAMPLE_STATE
@@ -105,6 +110,7 @@ function migrateFromOldFormat(old: {
     avatar?: string
   }
   activeYear?: number
+  macroGoal?: { title: string; description: string }
 }): IDPState {
   const goals = old.goals || []
   const categoryMap = new Map<string, Category>()
@@ -166,6 +172,7 @@ function migrateFromOldFormat(old: {
         }
       : SAMPLE_STATE.settings,
     activeYear: old.activeYear || SAMPLE_STATE.activeYear,
+    macroGoal: old.macroGoal || { title: '', description: '' },
   }
 }
 
