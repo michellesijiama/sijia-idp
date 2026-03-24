@@ -194,4 +194,5 @@ export const SAMPLE_STATE: IDPState = {
   categories: SAMPLE_CATEGORIES,
   settings: DEFAULT_SETTINGS,
   activeYear: DEFAULT_SETTINGS.year,
+  macroGoal: { title: '', description: '' },
 }

@@ -8,6 +8,7 @@ import {
   Objective,
   Evidence,
   UserSettings,
+  MacroGoal,
 } from '@/lib/types'
 import {
   saveState,
@@ -242,6 +243,15 @@ export function useIDP(
     [state, persist]
   )
 
+  // ── Macro Goal ─────────────────────────────────────────────────────────
+
+  const updateMacroGoal = useCallback(
+    (updates: Partial<MacroGoal>) => {
+      persist({ ...state, macroGoal: { ...state.macroGoal, ...updates } })
+    },
+    [state, persist]
+  )
+
   // ── Settings ────────────────────────────────────────────────────────────
 
   const updateSettings = useCallback(
@@ -292,6 +302,7 @@ export function useIDP(
     updateCategory,
     deleteCategory,
     reorderCategories,
+    updateMacroGoal,
     addSubCategory,
     updateSubCategory,
     deleteSubCategory,

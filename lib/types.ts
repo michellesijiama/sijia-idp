@@ -46,8 +46,14 @@ export interface UserSettings {
   avatar: string
 }
 
+export interface MacroGoal {
+  title: string
+  description: string
+}
+
 export interface IDPState {
   categories: Category[]
   settings: UserSettings
   activeYear: number
+  macroGoal: MacroGoal
 }
