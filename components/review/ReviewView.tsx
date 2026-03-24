@@ -51,7 +51,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
             <h2 className="text-2xl font-bold text-black mb-2">{state.macroGoal.title}</h2>
           )}
           {state.macroGoal.description && (
-            <p className="text-base text-neutral-500 leading-relaxed">{state.macroGoal.description}</p>
+            <p className="text-base text-neutral-500 leading-relaxed whitespace-pre-line">{state.macroGoal.description}</p>
           )}
         </section>
       )}
