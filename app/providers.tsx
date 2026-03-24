@@ -41,6 +41,10 @@ export function IDPProvider({ children }: { children: React.ReactNode }) {
         if (loaded.goals && !loaded.categories) {
           setInitialData(DEFAULT_STATE)
         } else {
+          // Ensure macroGoal exists for data saved before this field was added
+          if (!loaded.macroGoal) {
+            loaded.macroGoal = { title: '', description: '' }
+          }
           setInitialData(loaded)
         }
       })
