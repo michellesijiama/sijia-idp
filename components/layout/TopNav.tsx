@@ -1,9 +1,9 @@
 'use client'
 
-import React, { useState } from 'react'
+import React from 'react'
 import { useIDPContext } from '@/app/providers'
 import { Avatar } from '@/components/ui/Avatar'
-import { ChevronDown, Cloud, Eye, Pencil } from 'lucide-react'
+import { Cloud, Eye, Pencil } from 'lucide-react'
 
 interface TopNavProps {
   onMenuOpen: () => void
@@ -12,11 +12,8 @@ interface TopNavProps {
 }
 
 export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
-  const { state, setActiveYear, isSaving } = useIDPContext()
-  const { settings, activeYear } = state
-  const [yearOpen, setYearOpen] = useState(false)
-
-  const years = [2025, 2026, 2027]
+  const { state, isSaving } = useIDPContext()
+  const { settings } = state
 
   return (
     <header className="sticky top-0 z-30 h-12 flex items-center px-4 gap-3 bg-white/60 backdrop-blur-xl border-b border-white/30 shadow-[0_1px_8px_rgba(0,0,0,0.03)]">
@@ -72,39 +69,6 @@ export function TopNav({ onMenuOpen, mode, onModeChange }: TopNavProps) {
           Edit
         </button>
       </div>
-
-      {/* Year selector */}
-      <div className="relative">
-        <button
-          onClick={() => setYearOpen((o) => !o)}
-          className="flex items-center gap-1.5 h-7 px-3 text-base font-medium bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-full text-black hover:bg-white/80 transition-all duration-150 shadow-sm"
-        >
-          {activeYear}
-          <ChevronDown size={12} className="text-neutral-400" />
-        </button>
-        {yearOpen && (
-          <div className="absolute right-0 top-full mt-1 py-1 w-24 z-50 animate-slide-down bg-white/80 backdrop-blur-xl border border-white/40 rounded-none shadow-lg">
-            {years.map((y) => (
-              <button
-                key={y}
-                onClick={() => {
-                  setActiveYear(y)
-                  setYearOpen(false)
-                }}
-                className={cn(
-                  'w-full text-left px-3 py-1.5 text-base transition-all duration-150',
-                  y === activeYear
-                    ? 'text-black font-semibold bg-black/[0.06]'
-                    : 'text-neutral-600 hover:bg-black/[0.03]'
-                )}
-              >
-                {y}
-              </button>
-            ))}
-          </div>
-        )}
-      </div>
-
 
       {/* User avatar */}
       {mode === 'edit' && (

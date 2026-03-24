@@ -117,21 +117,6 @@ function SettingsView() {
           </div>
         ))}
 
-        <div>
-          <label className="block text-base font-semibold mb-1 text-black">IDP Year</label>
-          <select
-            value={form.year}
-            onChange={(e) => setForm((f) => ({ ...f, year: Number(e.target.value) }))}
-            className="w-full h-10 px-3 text-base bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-none text-black focus:outline-none focus:ring-2 focus:ring-black"
-          >
-            {[2025, 2026, 2027].map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            ))}
-          </select>
-        </div>
-
         <Button variant="primary" size="lg" onClick={handleSave}>
           {saved ? 'Saved!' : 'Save Settings'}
         </Button>
@@ -529,7 +514,7 @@ export default function Page() {
             <div className="space-y-6">
               <div className="flex items-end justify-between gap-3">
                 <h1 className="text-xl font-bold text-black">
-                  {state.activeYear} Individual Development Plan
+                  Individual Development Plan
                 </h1>
                 <Button variant="primary" size="md" onClick={handleAddCategory} className="flex-shrink-0">
                   <Plus size={15} />
@@ -586,7 +571,7 @@ export default function Page() {
                   <TrendingUp size={36} className="mx-auto mb-3 text-neutral-300" />
                   <h3 className="text-lg font-semibold mb-1 text-black">No categories yet</h3>
                   <p className="text-base mb-4 text-neutral-400">
-                    Start building your {state.activeYear} development plan
+                    Start building your development plan
                   </p>
                   <Button variant="primary" size="md" onClick={handleAddCategory}>
                     <Plus size={14} />

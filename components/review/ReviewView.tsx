@@ -28,7 +28,6 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
         <h1 className="text-4xl font-bold text-black tracking-tight mb-2">
           Individual Development Plan
         </h1>
-        <p className="text-lg text-neutral-500 mb-1">{state.activeYear}</p>
         <div className="mt-6 space-y-0.5">
           <p className="text-xl font-semibold text-black">{state.settings.name}</p>
           <p className="text-base text-neutral-500">
@@ -186,7 +185,7 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
       {/* Footer */}
       <section className="text-center py-12 border-t border-black/[0.06]">
         <p className="text-base text-neutral-400">
-          {state.settings.name} &middot; {state.activeYear} Individual Development Plan
+          {state.settings.name} &middot; Individual Development Plan
         </p>
       </section>
     </div>
