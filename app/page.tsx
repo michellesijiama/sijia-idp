@@ -364,6 +364,7 @@ export default function Page() {
     updateCategory,
     deleteCategory,
     reorderCategories,
+    updateMacroGoal,
     addSubCategory,
     updateSubCategory,
     deleteSubCategory,
@@ -537,6 +538,25 @@ export default function Page() {
               </div>
 
               <StatsBar stats={stats} />
+
+              {/* Macro Goal */}
+              <div className="bg-white/60 backdrop-blur-xl border border-white/40 rounded-none shadow-sm p-5 space-y-3">
+                <h3 className="text-base font-semibold text-black">Macro Goal</h3>
+                <input
+                  type="text"
+                  value={state.macroGoal.title}
+                  onChange={(e) => updateMacroGoal({ title: e.target.value })}
+                  placeholder="What is your overarching goal?"
+                  className="w-full h-10 px-3 text-base bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-none text-black placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent"
+                />
+                <textarea
+                  value={state.macroGoal.description}
+                  onChange={(e) => updateMacroGoal({ description: e.target.value })}
+                  placeholder="Describe your macro goal in detail..."
+                  rows={3}
+                  className="w-full px-3 py-2 text-base bg-white/50 backdrop-blur-sm border border-black/[0.06] rounded-none text-black placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-black focus:border-transparent resize-none"
+                />
+              </div>
 
               {/* Category sections */}
               <DndContext sensors={sensors} collisionDetection={closestCenter} onDragEnd={handleDragEnd}>

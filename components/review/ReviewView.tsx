@@ -41,6 +41,21 @@ export function ReviewView({ state, stats }: ReviewViewProps) {
         </div>
       </section>
 
+      {/* Macro Goal */}
+      {(state.macroGoal.title || state.macroGoal.description) && (
+        <section className="py-8 border-b border-black/[0.06]">
+          <p className="text-base font-semibold text-neutral-400 uppercase tracking-widest mb-2">
+            Macro Goal
+          </p>
+          {state.macroGoal.title && (
+            <h2 className="text-2xl font-bold text-black mb-2">{state.macroGoal.title}</h2>
+          )}
+          {state.macroGoal.description && (
+            <p className="text-base text-neutral-500 leading-relaxed">{state.macroGoal.description}</p>
+          )}
+        </section>
+      )}
+
       {/* Categories */}
       {state.categories.map((cat, catIndex) => {
         const catObjectives = cat.subCategories.reduce((sum, s) => sum + s.objectives.length, 0)
